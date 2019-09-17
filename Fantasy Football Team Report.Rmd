@@ -47,7 +47,7 @@ ffdata %>%
   summarise(score = sum(Actual)) %>%
   filter(score==max(score)|score==min(score)) -> topandbottom
 
-# ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avliding the Plunger" )
+# ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avoiding the Plunger" )
 ```
 
 ### Week Summary
