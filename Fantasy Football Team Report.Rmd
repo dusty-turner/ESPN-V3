@@ -1,0 +1,101 @@
+---
+title: "Fantasy Football Team Report"
+author: "Dusty Turner"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+params: 
+  team: "'R'm Chair_Quarterback"
+  week: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, error=FALSE, message=FALSE)
+library(tidyverse)
+library(kableExtra)
+library(DT)
+options(DT.options = list(pageLength = 100, language = list(search = 'Filter:')))
+```
+
+# Fantasy Football Report for `r params$team`: Week `r params$week`
+
+```{r, echo=FALSE}
+ffdata = read_csv("FantasyFootballData.csv")
+```
+
+```{r}
+ffdata %>%
+    # filter(scoringPeriodId==1) %>%
+  filter(scoringPeriodId==params$week) %>%
+  filter(Starter=="Starter") %>%
+  select(Actual,Predicted,Player,ActualMinusPredicted) %>%
+  summarise(mean=mean(Actual))  -> weekleaguemean
+
+ffdata %>%
+  # filter(Team=="'R'm Chair_Quarterback") %>%
+  # filter(scoringPeriodId==1) %>%
+  filter(Team==params$team) %>%
+  filter(scoringPeriodId==params$week) %>%
+  filter(Starter=="Starter") %>%
+  summarise(sum = sum(Actual)) -> weakteamsum
+
+ffdata %>%
+  # filter(scoringPeriodId==1) %>%
+  filter(scoringPeriodId==params$week) %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(Team)) %>%
+  group_by(Team) %>%
+  summarise(score = sum(Actual)) %>%
+  filter(score==max(score)|score==min(score)) -> topandbottom
+
+# ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avliding the Plunger" )
+```
+
+### Week Summary
+
+1. This week, your team scored `r weakteamsum$sum`; compared to the league average of `r round(weekleaguemean$mean*9,2)`.
+
+2. The Plunger winner is `r topandbottom$Team[1]`.  `r ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avoiding the Plunger" )`!
+`
+
+3. The Mug winner is `r topandbottom$Team[2]`. `r ifelse(params$team==topandbottom$Team[2], "Congradulations on winning the Mug!","Sorry, you didn't win the mug." )`
+
+### Visually
+
+```{r}
+ffdata %>%
+  # filter(Team=="'R'm Chair_Quarterback") %>%
+  # filter(scoringPeriodId==1) %>%
+  filter(Team==params$team) %>%
+  filter(scoringPeriodId==params$week) %>%
+  filter(Starter=="Starter") %>%
+  select(Actual,Predicted,Player,ActualMinusPredicted) %>%
+  mutate(order = rank(Actual)) %>%
+  gather(Type,Points,-Player,-ActualMinusPredicted,-order) %>%
+  ggplot(aes(x=Points,y=1, group = Player)) +
+  geom_point(aes(color = Type, size = Type)) +
+  geom_line(aes(color = Type)) +
+  geom_vline(aes(xintercept = weekleaguemean$mean)) +
+  # facet_grid(forcats::fct_reorder(Player,order)~.) +
+  facet_wrap(~forcats::fct_reorder(Player,order), ncol = 1) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())  +
+  scale_color_manual(values = c("blue","tan")) +
+  labs(y="", x = "Points: Predicted and Actual", title = "Did Your Team Over or Under Achieve?",
+       subtitle = "Blue Dots on the left are Underachievers", caption = "Black line denoting the league average score is included for refrence")
+
+```
+
+
+```{r}
+ffdata %>%
+  filter(Team==params$team) %>%
+  filter(scoringPeriodId==params$week) %>%
+  mutate(Predicted = round(Predicted,2)) %>%
+  mutate(ActualMinusPredicted = round(ActualMinusPredicted,2)) %>%
+  arrange(desc(Starter),playerrosterslot) %>%
+  select(Player,Position,SlottedPosition,Starter,Actual,Predicted,ActualMinusPredicted) %>%
+  DT::datatable(escape = FALSE) %>%
+  formatStyle('ActualMinusPredicted', backgroundColor = styleInterval(c(-100,-10,-5,0,5,10,100),  c("black","red","lightpink","khaki","khaki","lightgreen","green","black")))
+```
+
+

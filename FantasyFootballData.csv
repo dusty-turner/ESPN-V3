@@ -1,0 +1,322 @@
+scoringPeriodId,Player,Position,Team,playerrosterslot,Actual,Predicted,ActualMinusPredicted,SlottedPosition,Starter
+1,A.J. Green,Wide Receiver,Compute _This!,21,0,0,0,IR,Bench
+2,A.J. Green,Wide Receiver,Compute _This!,20,0,0,0,Bench,Bench
+1,Aaron Jones,Running Back,Compute _This!,23,4.9,12.515832916,-7.6158329160000005,Flex,Starter
+2,Aaron Jones,Running Back,Compute _This!,23,25,14.21299489,10.78700511,Flex,Starter
+1,Aaron Rodgers,Quarterback,Dallas_The boys,0,12.920000000000002,15.944781335999998,-3.0247813359999967,Quarterback,Starter
+2,Aaron Rodgers,Quarterback,Dallas_The boys,20,14.36,17.147755214,-2.7877552140000006,Bench,Bench
+1,Adam Thielen,Wide Receiver,Analysis_Paralysis,4,13.3,15.272118359199998,-1.9721183591999978,Wide Receiver,Starter
+2,Adam Thielen,Wide Receiver,Analysis_Paralysis,4,12.5,15.362609969000001,-2.862609969000001,Wide Receiver,Starter
+1,Adrian Peterson,Running Back,NA,NA,0,0,0,NA,Starter
+2,Adrian Peterson,Running Back,Dallas_The boys,20,11.2,10.885895831000001,0.3141041689999984,Bench,Bench
+1,Allen Robinson,Wide Receiver,Philly_Chapmaniacs,20,17.200000000000003,12.871781834,4.328218166000003,Bench,Bench
+2,Allen Robinson,Wide Receiver,Philly_Chapmaniacs,20,8.100000000000001,12.815590617,-4.715590616999998,Bench,Bench
+1,Alshon Jeffery,Wide Receiver,The OBJective_Functions,20,22.1,12.220765912000001,9.879234088,Bench,Bench
+2,Alshon Jeffery,Wide Receiver,The OBJective_Functions,20,0,13.010422222,-13.010422222,Bench,Bench
+1,Alvin Kamara,Running Back,'R'm Chair_Quarterback,2,23.900000000000002,21.168969965000002,2.731030035,Running Back,Starter
+2,Alvin Kamara,Running Back,'R'm Chair_Quarterback,2,7,20.831770348000003,-13.831770348000003,Running Back,Starter
+1,Amari Cooper,Wide Receiver,Palindrome_Tikkit,4,22.6,15.069220243400002,7.530779756599999,Wide Receiver,Starter
+2,Amari Cooper,Wide Receiver,Palindrome_Tikkit,4,14.4,14.04726632,0.35273368000000005,Wide Receiver,Starter
+1,Antonio Brown,Wide Receiver,'R'm Chair_Quarterback,20,0,0,0,Bench,Bench
+2,Antonio Brown,Wide Receiver,'R'm Chair_Quarterback,4,16.1,13.295201381999998,2.804798618000003,Wide Receiver,Starter
+1,Austin Ekeler,Running Back,Palindrome_Tikkit,20,39.400000000000006,15.941498371,23.458501629000004,Bench,Bench
+2,Austin Ekeler,Running Back,Palindrome_Tikkit,20,23.3,16.789621910000005,6.510378089999996,Bench,Bench
+1,Austin Hooper,Tight End,Team_Ward,6,16.7,9.3281575482,7.371842451799999,Tight End,Starter
+2,Austin Hooper,Tight End,Team_Ward,6,7.4,9.767052356,-2.3670523560000003,Tight End,Starter
+1,Baker Mayfield,Quarterback,Analysis_Paralysis,0,9.4,16.5818363087,-7.181836308700001,Quarterback,Starter
+2,Baker Mayfield,Quarterback,Analysis_Paralysis,0,2.68,17.7778331736,-15.097833173600002,Quarterback,Starter
+1,Bears D/ST,Defense,Analysis_Paralysis,16,10,7.452470389,2.547529611,Defense,Starter
+2,Bears D/ST,Defense,Analysis_Paralysis,16,4,6.048523467000001,-2.0485234670000008,Defense,Starter
+1,Ben Roethlisberger,Quarterback,Team_Ward,0,9.740000000000002,17.3731268619,-7.633126861899999,Quarterback,Starter
+2,Ben Roethlisberger,Quarterback,Team_Ward,0,3,18.8469115626,-15.846911562599999,Quarterback,Starter
+1,Bills D/ST,Defense,Team_Ward,16,11,6.655091970999999,4.344908029000001,Defense,Starter
+2,Bills D/ST,Defense,Team_Ward,16,5,5.980718088,-0.9807180879999997,Defense,Starter
+1,Brandin Cooks,Wide Receiver,Dallas_The boys,4,5.9,14.4448739558,-8.5448739558,Wide Receiver,Starter
+2,Brandin Cooks,Wide Receiver,Dallas_The boys,23,16.6,14.374831336400002,2.2251686636,Flex,Starter
+1,Brett Maher,Kicker,Palindrome_Tikkit,17,5,8.646924331000001,-3.646924331000001,Kicker,Starter
+2,Brett Maher,Kicker,Palindrome_Tikkit,17,7,7.857132311000002,-0.8571323110000018,Kicker,Starter
+1,Broncos D/ST,Defense,The_Plainsmen,16,-1,6.387916346999999,-7.387916346999999,Defense,Starter
+2,Broncos D/ST,Defense,The_Plainsmen,16,3,5.149618213,-2.149618213,Defense,Starter
+1,Browns D/ST,Defense,Dallas_The boys,16,1,7.103580741999999,-6.103580741999999,Defense,Starter
+2,Browns D/ST,Defense,Dallas_The boys,16,11,6.436845808999999,4.563154191000001,Defense,Starter
+1,Calvin Ridley,Wide Receiver,The_Plainsmen,4,16.4,11.473387047600001,4.9266129523999975,Wide Receiver,Starter
+2,Calvin Ridley,Wide Receiver,The_Plainsmen,4,24.5,12.521611156399999,11.978388843600001,Wide Receiver,Starter
+1,Cam Newton,Quarterback,The OBJective_Functions,0,5.36,18.493309009,-13.133309009000001,Quarterback,Starter
+2,Cam Newton,Quarterback,The OBJective_Functions,0,11.32,19.030975859,-7.710975859000001,Quarterback,Starter
+1,Carson Wentz,Quarterback,Compute _This!,0,25.02,19.252510704000002,5.767489295999997,Quarterback,Starter
+2,Carson Wentz,Quarterback,Compute _This!,0,17.54,20.084051547,-2.5440515470000022,Quarterback,Starter
+1,Chargers D/ST,Defense,The OBJective_Functions,16,1,7.8232051270000005,-6.8232051270000005,Defense,Starter
+1,Chris Carson,Running Back,Palindrome_Tikkit,2,24,15.637184675,8.362815325,Running Back,Starter
+2,Chris Carson,Running Back,Palindrome_Tikkit,2,9.7,15.233578944000001,-5.533578944000002,Running Back,Starter
+1,Chris Godwin,Wide Receiver,Team_Ward,4,14.3,12.59416925,1.7058307500000005,Wide Receiver,Starter
+2,Chris Godwin,Wide Receiver,Team_Ward,4,26.1,14.35112271,11.748877290000001,Wide Receiver,Starter
+1,Christian Kirk,Wide Receiver,The OBJective_Functions,20,10.4,10.338802065600001,0.0611979343999991,Bench,Bench
+2,Christian Kirk,Wide Receiver,The OBJective_Functions,20,17.4,11.2274643158,6.172535684199998,Bench,Bench
+1,Christian McCaffrey,Running Back,The_Chief,2,42.9,20.959282922000003,21.940717077999995,Running Back,Starter
+2,Christian McCaffrey,Running Back,The_Chief,2,7.300000000000001,25.12085851,-17.82085851,Running Back,Starter
+1,Cooper Kupp,Wide Receiver,Palindrome_Tikkit,23,11.600000000000001,12.589364008,-0.989364007999999,Flex,Starter
+2,Cooper Kupp,Wide Receiver,Palindrome_Tikkit,20,17.6,13.1845168129,4.415483187100001,Bench,Bench
+1,Corey Davis,Wide Receiver,The OBJective_Functions,20,0,10.1896204169,-10.1896204169,Bench,Bench
+2,Corey Davis,Wide Receiver,The OBJective_Functions,20,6.800000000000001,7.9557000871,-1.1557000870999996,Bench,Bench
+1,Courtland Sutton,Wide Receiver,Palindrome_Tikkit,20,19,10.270137750000002,8.729862249999998,Bench,Bench
+2,Courtland Sutton,Wide Receiver,Palindrome_Tikkit,20,8,11.364838339,-3.3648383390000003,Bench,Bench
+1,Curtis Samuel,Wide Receiver,Compute _This!,20,6.2,10.2443867125,-4.044386712500001,Bench,Bench
+2,Curtis Samuel,Wide Receiver,Compute _This!,20,14.3,10.281994514100003,4.018005485899998,Bench,Bench
+1,Dak Prescott,Quarterback,'R'm Chair_Quarterback,0,33.4,21.222477131,12.177522868999997,Quarterback,Starter
+2,Dak Prescott,Quarterback,'R'm Chair_Quarterback,20,27.659999999999997,19.462384585000002,8.197615414999994,Bench,Bench
+1,Dalvin Cook,Running Back,Dallas_The boys,2,26,16.58289751,9.417102490000001,Running Back,Starter
+2,Dalvin Cook,Running Back,Dallas_The boys,2,28.099999999999998,15.903669794999999,12.196330204999999,Running Back,Starter
+1,Damien Williams,Running Back,'R'm Chair_Quarterback,20,18.5,12.186201061999999,6.3137989380000015,Bench,Bench
+2,Damien Williams,Running Back,'R'm Chair_Quarterback,2,8.600000000000001,13.885573442000002,-5.2855734420000005,Running Back,Starter
+1,Dante Pettis,Wide Receiver,Philly_Chapmaniacs,20,1.7000000000000002,10.163918494999999,-8.463918494999998,Bench,Bench
+1,Darren Waller,Tight End,'R'm Chair_Quarterback,20,14,8.654820399,5.345179601,Bench,Bench
+2,Darren Waller,Tight End,Compute _This!,20,12.3,11.391620026,0.9083799740000007,Bench,Bench
+1,Darwin Thompson,Running Back,Analysis_Paralysis,20,1.3,2.4345343193,-1.1345343193,Bench,Bench
+2,Darwin Thompson,Running Back,Analysis_Paralysis,20,0.1,2.2821604162,-2.1821604162,Bench,Bench
+1,Davante Adams,Wide Receiver,Analysis_Paralysis,4,7.6,16.944905000000002,-9.344905000000002,Wide Receiver,Starter
+2,Davante Adams,Wide Receiver,Analysis_Paralysis,4,17.6,16.217662293,1.3823377070000014,Wide Receiver,Starter
+1,David Johnson,Running Back,The OBJective_Functions,2,25.700000000000003,19.411101584000004,6.2888984159999985,Running Back,Starter
+2,David Johnson,Running Back,The OBJective_Functions,2,8.4,17.835364303,-9.435364302999998,Running Back,Starter
+1,David Montgomery,Running Back,Analysis_Paralysis,23,5.5,11.130663292999998,-5.630663292999998,Flex,Starter
+2,David Montgomery,Running Back,Analysis_Paralysis,23,13.799999999999999,9.995138243,3.8048617569999994,Flex,Starter
+1,David Njoku,Tight End,Philly_Chapmaniacs,6,13.7,8.833058005,4.8669419949999995,Tight End,Starter
+2,David Njoku,Tight End,Philly_Chapmaniacs,6,0,9.412032376,-9.412032376,Tight End,Starter
+1,DeAndre Hopkins,Wide Receiver,Philly_Chapmaniacs,4,31.1,19.708130214,11.391869786000001,Wide Receiver,Starter
+2,DeAndre Hopkins,Wide Receiver,Philly_Chapmaniacs,4,9,15.97145123,-6.9714512299999996,Wide Receiver,Starter
+1,Dede Westbrook,Wide Receiver,The_Chief,20,14.2,12.533759862999998,1.6662401370000008,Bench,Bench
+2,Dede Westbrook,Wide Receiver,The_Chief,20,1.3,10.8116786765,-9.511678676499999,Bench,Bench
+1,Delanie Walker,Tight End,Compute _This!,20,22.5,9.348344113,13.151655887,Bench,Bench
+2,Delanie Walker,Tight End,Compute _This!,6,7.9,9.126807917999999,-1.2268079179999987,Tight End,Starter
+1,Derrick Henry,Running Back,Team_Ward,23,28.9,13.800856158999999,15.099143841,Flex,Starter
+2,Derrick Henry,Running Back,Team_Ward,2,17.3,15.319959148000002,1.9800408519999984,Running Back,Starter
+1,Derrius Guice,Running Back,'R'm Chair_Quarterback,20,6.8,12.716159191,-5.916159190999999,Bench,Bench
+1,DeSean Jackson,Wide Receiver,NA,NA,35.4,8.872713483699998,26.527286516300002,NA,Starter
+2,DeSean Jackson,Wide Receiver,Compute _This!,20,0,11.716223531100002,-11.716223531100002,Bench,Bench
+1,Deshaun Watson,Quarterback,Philly_Chapmaniacs,0,30.72,21.472903705999997,9.247096294000002,Quarterback,Starter
+2,Deshaun Watson,Quarterback,Philly_Chapmaniacs,0,12.86,18.676715675,-5.816715675000001,Quarterback,Starter
+1,Devin Singletary,Running Back,The OBJective_Functions,20,14.8,10.116021825,4.683978175,Bench,Bench
+2,Devin Singletary,Running Back,The OBJective_Functions,20,11.7,10.868804861,0.8311951390000001,Bench,Bench
+1,Devonta Freeman,Running Back,The OBJective_Functions,2,4.1000000000000005,14.335962946,-10.235962946,Running Back,Starter
+2,Devonta Freeman,Running Back,The OBJective_Functions,20,9.4,15.768509144999998,-6.368509144999997,Bench,Bench
+1,DJ Moore,Wide Receiver,Dallas_The boys,23,12.600000000000001,13.0054759258,-0.40547592579999936,Flex,Starter
+2,DJ Moore,Wide Receiver,Dallas_The boys,20,17.9,13.0508605373,4.849139462699998,Bench,Bench
+1,Donte Moncrief,Wide Receiver,The_Plainsmen,20,3.7,9.860879987999999,-6.160879987999999,Bench,Bench
+2,Donte Moncrief,Wide Receiver,The_Plainsmen,20,0,8.933334721000001,-8.933334721000001,Bench,Bench
+1,Drew Brees,Quarterback,The_Chief,0,20.8,18.527284889700002,2.2727151102999983,Quarterback,Starter
+2,Drew Brees,Quarterback,The_Chief,20,-0.48,17.0164522983,-17.4964522983,Bench,Bench
+1,Duke Johnson Jr.,Running Back,Palindrome_Tikkit,20,13,12.313012123,0.686987877,Bench,Bench
+2,Duke Johnson Jr.,Running Back,Palindrome_Tikkit,20,3.1,11.755089366,-8.655089366,Bench,Bench
+1,Eagles D/ST,Defense,Philly_Chapmaniacs,16,0,7.107981258,-7.107981258,Defense,Starter
+1,Emmanuel Sanders,Wide Receiver,Philly_Chapmaniacs,20,19.6,11.967789206199997,7.632210793800004,Bench,Bench
+2,Emmanuel Sanders,Wide Receiver,Philly_Chapmaniacs,20,28.8,10.6670846403,18.1329153597,Bench,Bench
+1,Evan Engram,Tight End,Analysis_Paralysis,6,28.6,11.9676820396,16.6323179604,Tight End,Starter
+2,Evan Engram,Tight End,Analysis_Paralysis,6,10.8,12.629873858500002,-1.829873858500001,Tight End,Starter
+1,Ezekiel Elliott,Running Back,Compute _This!,2,13.3,21.358941569,-8.058941568999998,Running Back,Starter
+2,Ezekiel Elliott,Running Back,Compute _This!,2,20,21.697060164000003,-1.6970601640000034,Running Back,Starter
+1,George Kittle,Tight End,The OBJective_Functions,6,13.4,14.889676217999998,-1.4896762179999978,Tight End,Starter
+2,George Kittle,Tight End,The OBJective_Functions,6,8.4,15.58416001,-7.184160009999999,Tight End,Starter
+1,Geronimo Allison,Wide Receiver,The_Plainsmen,20,0,7.385929017,-7.385929017,Bench,Bench
+2,Geronimo Allison,Wide Receiver,The_Plainsmen,20,10.5,7.142548033000001,3.3574519669999994,Bench,Bench
+1,Giovani Bernard,Running Back,NA,NA,8.3,8.714693907,-0.4146939069999984,NA,Starter
+2,Giovani Bernard,Running Back,'R'm Chair_Quarterback,20,2.3000000000000003,11.715615905000002,-9.415615905000001,Bench,Bench
+1,Greg Olsen,Tight End,'R'm Chair_Quarterback,6,7.6,8.413158395,-0.8131583950000003,Tight End,Starter
+2,Greg Olsen,Tight End,'R'm Chair_Quarterback,20,17,9.214111123999999,7.785888876000001,Bench,Bench
+1,Greg Zuerlein,Kicker,Analysis_Paralysis,17,14,8.850359823,5.149640177,Kicker,Starter
+2,Greg Zuerlein,Kicker,Analysis_Paralysis,17,9,9.552016739,-0.5520167390000008,Kicker,Starter
+1,Harrison Butker,Kicker,The OBJective_Functions,17,17,8.55210729,8.44789271,Kicker,Starter
+2,Harrison Butker,Kicker,The OBJective_Functions,17,4,9.082494206,-5.082494206,Kicker,Starter
+0,Hunter Henry,Tight End,NA,NA,NA,0,NA,NA,Starter
+1,Hunter Henry,Tight End,Compute _This!,6,10,9.973743067,0.02625693300000087,Tight End,Starter
+1,Jaguars D/ST,Defense,Compute _This!,20,-8,4.559513675,-12.559513675,Bench,Bench
+2,Jaguars D/ST,Defense,Compute _This!,20,9,6.855366634000001,2.144633365999999,Bench,Bench
+1,Jake Elliott,Kicker,NA,NA,6,8.148878106,-2.1488781059999997,NA,Starter
+2,Jake Elliott,Kicker,Philly_Chapmaniacs,17,7,8.403043547000001,-1.4030435470000011,Kicker,Starter
+1,Jameis Winston,Quarterback,Analysis_Paralysis,20,7.06,18.801919017,-11.741919017,Bench,Bench
+2,Jameis Winston,Quarterback,Analysis_Paralysis,20,13.22,17.009458418,-3.7894584180000006,Bench,Bench
+1,James Conner,Running Back,Palindrome_Tikkit,2,10.5,15.23473426,-4.73473426,Running Back,Starter
+2,James Conner,Running Back,Palindrome_Tikkit,2,13.5,16.954790162000002,-3.454790162000002,Running Back,Starter
+1,James Washington,Wide Receiver,Dallas_The boys,20,7.1000000000000005,9.096815221,-1.9968152209999994,Bench,Bench
+2,James Washington,Wide Receiver,Dallas_The boys,20,4.300000000000001,8.816488369,-4.516488368999999,Bench,Bench
+1,James White,Running Back,The OBJective_Functions,23,13.2,13.946106435,-0.7461064350000015,Flex,Starter
+2,James White,Running Back,The OBJective_Functions,2,11.9,12.207303143999999,-0.3073031439999987,Running Back,Starter
+1,Jamison Crowder,Wide Receiver,Analysis_Paralysis,20,24.3,9.826164958500003,14.473835041499997,Bench,Bench
+2,Jamison Crowder,Wide Receiver,Analysis_Paralysis,20,0,11.909170786799999,-11.909170786799999,Bench,Bench
+1,Jared Cook,Tight End,The_Plainsmen,23,5.7,10.679145775000002,-4.979145775000002,Flex,Starter
+2,Jared Cook,Tight End,The_Plainsmen,23,4.5,10.481514941,-5.981514941,Flex,Starter
+1,Jared Goff,Quarterback,Dallas_The boys,20,9.440000000000001,17.2441300371,-7.804130037099998,Bench,Bench
+2,Jared Goff,Quarterback,Dallas_The boys,0,19.12,17.0533479534,2.0666520466000016,Quarterback,Starter
+1,Jarvis Landry,Wide Receiver,The_Chief,20,11.7,11.439377167900002,0.2606228320999975,Bench,Bench
+2,Jarvis Landry,Wide Receiver,The_Chief,20,1.7000000000000002,11.905117945399999,-10.205117945399998,Bench,Bench
+1,Jets D/ST,Defense,Compute _This!,16,17,7.293698525000001,9.706301475,Defense,Starter
+1,Jimmy Graham,Tight End,NA,NA,12,8.087640609,3.9123593910000007,NA,Starter
+2,Jimmy Graham,Tight End,Philly_Chapmaniacs,20,0,8.315459717,-8.315459717,Bench,Bench
+1,Joe Mixon,Running Back,Team_Ward,2,3.7,16.231848105,-12.531848105000002,Running Back,Starter
+2,Joe Mixon,Running Back,Team_Ward,23,5.7,14.839322041000003,-9.139322041000003,Flex,Starter
+1,John Ross III,Wide Receiver,Dallas_The boys,20,34.8,9.0300761418,25.769923858199995,Bench,Bench
+2,John Ross III,Wide Receiver,Dallas_The boys,4,21.200000000000003,11.587276209899999,9.612723790100004,Wide Receiver,Starter
+1,Jordan Howard,Running Back,Team_Ward,20,7.5,8.8358438786,-1.3358438786000004,Bench,Bench
+2,Jordan Howard,Running Back,Team_Ward,20,3.5999999999999996,7.0462480745,-3.4462480745000006,Bench,Bench
+1,Jordan Reed,Tight End,'R'm Chair_Quarterback,21,0,0,0,IR,Bench
+2,Jordan Reed,Tight End,'R'm Chair_Quarterback,21,0,0,0,IR,Bench
+1,Josh Gordon,Wide Receiver,The_Chief,23,16.3,12.702891195,3.5971088050000013,Flex,Starter
+2,Josh Gordon,Wide Receiver,The_Chief,23,3.9000000000000004,11.589730865,-7.689730865,Flex,Starter
+1,Josh Jacobs,Running Back,Team_Ward,2,24.3,15.641104302,8.658895698,Running Back,Starter
+2,Josh Jacobs,Running Back,Team_Ward,2,9.9,16.705936523000002,-6.8059365230000015,Running Back,Starter
+1,JuJu Smith-Schuster,Wide Receiver,Compute _This!,4,13.8,18.039474586,-4.239474586,Wide Receiver,Starter
+2,JuJu Smith-Schuster,Wide Receiver,Compute _This!,4,13.4,16.287725085,-2.8877250850000014,Wide Receiver,Starter
+1,Julian Edelman,Wide Receiver,Dallas_The boys,4,16.380000000000003,16.3783064643,0.0016935357000029683,Wide Receiver,Starter
+2,Julian Edelman,Wide Receiver,Dallas_The boys,4,9.2,13.8003693567,-4.6003693567,Wide Receiver,Starter
+1,Julio Jones,Wide Receiver,Team_Ward,4,15.1,16.8534972319,-1.7534972319000008,Wide Receiver,Starter
+2,Julio Jones,Wide Receiver,Team_Ward,4,27.6,19.132007059000003,8.467992940999999,Wide Receiver,Starter
+1,Justin Jackson,Running Back,Philly_Chapmaniacs,20,7.1000000000000005,9.032645726,-1.9326457259999996,Bench,Bench
+1,Justin Tucker,Kicker,Team_Ward,17,11,9.188039148000001,1.8119608519999986,Kicker,Starter
+2,Justin Tucker,Kicker,Team_Ward,17,13,9.548998216000001,3.451001783999999,Kicker,Starter
+1,Ka'imi Fairbairn,Kicker,Compute _This!,17,4,8.702349347,-4.702349347,Kicker,Starter
+2,Ka'imi Fairbairn,Kicker,Compute _This!,17,7,9.257032068,-2.257032067999999,Kicker,Starter
+1,Keenan Allen,Wide Receiver,The_Chief,4,26.3,15.9350595261,10.3649404739,Wide Receiver,Starter
+2,Keenan Allen,Wide Receiver,The_Chief,4,17.8,18.3898028518,-0.5898028517999983,Wide Receiver,Starter
+1,Keke Coutee,Wide Receiver,Palindrome_Tikkit,20,0,7.415387510400001,-7.415387510400001,Bench,Bench
+2,Keke Coutee,Wide Receiver,Palindrome_Tikkit,20,2.7,7.136098343200002,-4.436098343200002,Bench,Bench
+1,Kenny Golladay,Wide Receiver,The_Plainsmen,4,14.2,13.994063941699999,0.20593605830000072,Wide Receiver,Starter
+2,Kenny Golladay,Wide Receiver,The_Plainsmen,4,25.700000000000003,12.393973239,13.306026761000004,Wide Receiver,Starter
+1,Kenyan Drake,Running Back,'R'm Chair_Quarterback,2,4.7,13.131430247,-8.431430247000002,Running Back,Starter
+2,Kenyan Drake,Running Back,'R'm Chair_Quarterback,20,9.8,11.63885833,-1.838858329999999,Bench,Bench
+1,Kerryon Johnson,Running Back,Analysis_Paralysis,2,8.200000000000001,14.968090783000003,-6.768090783000002,Running Back,Starter
+2,Kerryon Johnson,Running Back,Analysis_Paralysis,2,16.8,14.518535167000001,2.2814648329999994,Running Back,Starter
+1,Kirk Cousins,Quarterback,NA,NA,14.32,17.3255872695,-3.005587269500001,NA,Starter
+2,Kirk Cousins,Quarterback,Philly_Chapmaniacs,20,8.900000000000002,16.1091286815,-7.2091286814999975,Bench,Bench
+1,Kyle Rudolph,Tight End,Dallas_The boys,20,0,8.3074333228,-8.3074333228,Bench,Bench
+2,Kyle Rudolph,Tight End,Dallas_The boys,20,3.9,7.595921323000001,-3.6959213230000008,Bench,Bench
+1,Kyler Murray,Quarterback,Team_Ward,20,21.62,17.883930577999998,3.7360694220000035,Bench,Bench
+2,Kyler Murray,Quarterback,Team_Ward,20,16.36,15.324695575,1.0353044249999996,Bench,Bench
+1,Lamar Jackson,Quarterback,'R'm Chair_Quarterback,20,33.56,18.852493907000003,14.707506093,Bench,Bench
+2,Lamar Jackson,Quarterback,'R'm Chair_Quarterback,0,30.880000000000003,19.894536092000003,10.985463908,Quarterback,Starter
+1,Larry Fitzgerald,Wide Receiver,Compute _This!,20,25.3,10.879771741999999,14.420228258000002,Bench,Bench
+2,Larry Fitzgerald,Wide Receiver,Compute _This!,20,15.4,11.872501044000002,3.5274989559999987,Bench,Bench
+1,Latavius Murray,Running Back,The_Chief,20,12.700000000000001,8.340435077999999,4.359564922000002,Bench,Bench
+2,Latavius Murray,Running Back,The_Chief,20,3.3000000000000003,7.975839066000002,-4.675839066000002,Bench,Bench
+1,Le'Veon Bell,Running Back,Analysis_Paralysis,2,23.2,15.869068654000001,7.330931345999998,Running Back,Starter
+2,Le'Veon Bell,Running Back,Analysis_Paralysis,2,0.5,19.124411305000002,-18.624411305000002,Running Back,Starter
+1,Leonard Fournette,Running Back,Philly_Chapmaniacs,2,11.400000000000002,17.448394424,-6.048394423999998,Running Back,Starter
+2,Leonard Fournette,Running Back,Philly_Chapmaniacs,2,12.7,15.583707274,-2.8837072740000007,Running Back,Starter
+1,LeSean McCoy,Running Back,NA,NA,10.3,5.1217352325,5.178264767500001,NA,Starter
+2,LeSean McCoy,Running Back,Philly_Chapmaniacs,20,5.300000000000001,11.649896307,-6.349896307,Bench,Bench
+1,Malcolm Brown,Running Back,NA,NA,17.3,2.4735649614999997,14.826435038500001,NA,Starter
+2,Malcolm Brown,Running Back,Philly_Chapmaniacs,20,5.7,7.528036426100001,-1.8280364261000006,Bench,Bench
+1,Mark Andrews,Tight End,Team_Ward,20,24.8,8.519612818999999,16.280387181000002,Bench,Bench
+2,Mark Andrews,Tight End,Team_Ward,20,25.200000000000003,9.507607772,15.692392228000003,Bench,Bench
+1,Mark Ingram II,Running Back,Philly_Chapmaniacs,23,22.700000000000003,14.348674559999997,8.351325440000005,Flex,Starter
+2,Mark Ingram II,Running Back,Philly_Chapmaniacs,23,9.7,12.827068136000001,-3.127068136000002,Flex,Starter
+1,Marlon Mack,Running Back,The_Plainsmen,2,25.400000000000002,11.048374284,14.351625716000003,Running Back,Starter
+2,Marlon Mack,Running Back,The_Plainsmen,2,8.3,13.105331906,-4.805331905999999,Running Back,Starter
+1,Marquise Brown,Wide Receiver,NA,NA,30.700000000000003,7.8572748041,22.8427251959,NA,Starter
+2,Marquise Brown,Wide Receiver,'R'm Chair_Quarterback,23,16.6,8.707622675000001,7.892377325,Flex,Starter
+1,Marvin Jones Jr.,Wide Receiver,Team_Ward,20,10,12.188846924,-2.188846924,Bench,Bench
+2,Marvin Jones Jr.,Wide Receiver,Team_Ward,20,9.3,10.807649612000002,-1.5076496120000016,Bench,Bench
+1,Mason Crosby,Kicker,'R'm Chair_Quarterback,17,4,7.144209336,-3.1442093360000003,Kicker,Starter
+2,Mason Crosby,Kicker,'R'm Chair_Quarterback,17,3,8.377835285000002,-5.3778352850000015,Kicker,Starter
+1,Matt Breida,Running Back,The_Chief,20,3.7,10.676773924999999,-6.976773924999999,Bench,Bench
+2,Matt Breida,Running Back,The_Chief,20,14.200000000000001,12.74031163,1.4596883700000003,Bench,Bench
+1,Matt Bryant,Kicker,NA,NA,0,8.141837853,-8.141837853,NA,Starter
+2,Matt Bryant,Kicker,Dallas_The boys,17,7,9.31493618,-2.31493618,Kicker,Starter
+1,Matt Prater,Kicker,The_Plainsmen,20,11,7.064006472999999,3.935993527000001,Bench,Bench
+2,Matt Prater,Kicker,The_Plainsmen,20,0,8.73888815,-8.73888815,Bench,Bench
+1,Matt Ryan,Quarterback,Palindrome_Tikkit,0,18.560000000000002,17.5558978004,1.004102199600002,Quarterback,Starter
+2,Matt Ryan,Quarterback,Palindrome_Tikkit,0,19.1,19.2581800994,-0.1581800993999991,Quarterback,Starter
+1,Melvin Gordon,Running Back,Philly_Chapmaniacs,20,0,0,0,Bench,Bench
+2,Melvin Gordon,Running Back,Compute _This!,21,0,0,0,IR,Bench
+1,Michael Gallup,Wide Receiver,NA,NA,22.8,10.025585721,12.774414279,NA,Starter
+2,Michael Gallup,Wide Receiver,Philly_Chapmaniacs,4,12.8,10.320334534999999,2.479665465000002,Wide Receiver,Starter
+1,Michael Thomas,Wide Receiver,Palindrome_Tikkit,4,22.3,18.515716792000003,3.784283207999998,Wide Receiver,Starter
+2,Michael Thomas,Wide Receiver,Palindrome_Tikkit,4,18.9,18.462936074,0.4370639259999969,Wide Receiver,Starter
+1,Mike Badgley,Kicker,Dallas_The boys,17,0,0,0,Kicker,Starter
+1,Mike Evans,Wide Receiver,'R'm Chair_Quarterback,4,4.800000000000001,15.970178675,-11.170178674999999,Wide Receiver,Starter
+2,Mike Evans,Wide Receiver,'R'm Chair_Quarterback,4,10.100000000000001,14.019683288,-3.919683287999998,Wide Receiver,Starter
+1,Mike Williams,Wide Receiver,Team_Ward,20,4.9,12.6707992318,-7.7707992318,Bench,Bench
+2,Mike Williams,Wide Receiver,Team_Ward,20,11.3,9.9709293138,1.3290706862000015,Bench,Bench
+1,Miles Sanders,Running Back,Dallas_The boys,20,3.7,10.253761781,-6.5537617809999995,Bench,Bench
+2,Miles Sanders,Running Back,Dallas_The boys,20,6.700000000000001,9.504738565999999,-2.8047385659999975,Bench,Bench
+1,Mitchell Trubisky,Quarterback,Philly_Chapmaniacs,20,8.22,18.356920328999998,-10.136920328999997,Bench,Bench
+1,Mohamed Sanu,Wide Receiver,The_Chief,20,10.7,9.2034984785,1.496501521499999,Bench,Bench
+2,Mohamed Sanu,Wide Receiver,The_Chief,20,5.6,9.449484384299998,-3.8494843842999984,Bench,Bench
+1,Nick Chubb,Running Back,Compute _This!,2,11.5,17.655834067,-6.155834067000001,Running Back,Starter
+2,Nick Chubb,Running Back,Compute _This!,2,0.9,18.529737393,-17.629737393000003,Running Back,Starter
+1,Nyheim Hines,Running Back,Analysis_Paralysis,20,5.7,7.513730299,-1.8137302989999995,Bench,Bench
+2,Nyheim Hines,Running Back,Analysis_Paralysis,20,2.4,7.3459513030000005,-4.945951303000001,Bench,Bench
+1,O.J. Howard,Tight End,Dallas_The boys,6,5.2,10.321463142,-5.1214631420000005,Tight End,Starter
+2,O.J. Howard,Tight End,Dallas_The boys,6,0,8.450672377999998,-8.450672377999998,Tight End,Starter
+1,Odell Beckham Jr.,Wide Receiver,The OBJective_Functions,4,14.100000000000001,16.2875372455,-2.1875372454999997,Wide Receiver,Starter
+2,Odell Beckham Jr.,Wide Receiver,The OBJective_Functions,4,4.300000000000001,17.044761357499997,-12.744761357499996,Wide Receiver,Starter
+1,Panthers D/ST,Defense,The_Chief,16,4,5.416004792000001,-1.4160047920000007,Defense,Starter
+2,Panthers D/ST,Defense,The_Chief,16,7,7.079617660999999,-0.07961766099999856,Defense,Starter
+1,Patrick Mahomes,Quarterback,The_Plainsmen,0,27.32,19.907314699,7.412685301,Quarterback,Starter
+2,Patrick Mahomes,Quarterback,The_Plainsmen,0,31.619999999999997,24.763503267000004,6.856496732999993,Quarterback,Starter
+1,Patriots D/ST,Defense,NA,NA,7,5.0581151559999995,1.9418848440000005,NA,Starter
+2,Patriots D/ST,Defense,The OBJective_Functions,16,35,6.345393583,28.654606417,Defense,Starter
+1,Philip Rivers,Quarterback,Compute _This!,20,23.92,16.679650447,7.2403495530000015,Bench,Bench
+1,Phillip Lindsay,Running Back,The OBJective_Functions,20,10.600000000000001,11.870687790000002,-1.2706877900000002,Bench,Bench
+2,Phillip Lindsay,Running Back,The OBJective_Functions,20,10.6,13.088183646999997,-2.488183646999998,Bench,Bench
+1,Rams D/ST,Defense,Palindrome_Tikkit,16,9,5.360821408,3.6391785920000004,Defense,Starter
+2,Rams D/ST,Defense,Palindrome_Tikkit,16,9,4.877423773,4.122576227,Defense,Starter
+1,Rashaad Penny,Running Back,Palindrome_Tikkit,20,1.8,9.179991545999998,-7.3799915459999985,Bench,Bench
+2,Rashaad Penny,Running Back,Palindrome_Tikkit,20,13.5,6.8547479404,6.6452520596,Bench,Bench
+1,Ravens D/ST,Defense,NA,NA,14,5.329138627,8.670861373000001,NA,Starter
+2,Ravens D/ST,Defense,Philly_Chapmaniacs,16,4,8.538708694,-4.538708694,Defense,Starter
+1,Robbie Gould,Kicker,Philly_Chapmaniacs,17,11,7.9852082310000005,3.0147917689999995,Kicker,Starter
+1,Robby Anderson,Wide Receiver,Dallas_The boys,20,5.300000000000001,11.4139816439,-6.113981643899999,Bench,Bench
+1,Robert Woods,Wide Receiver,The_Chief,4,16.6,13.400926861099999,3.199073138900003,Wide Receiver,Starter
+2,Robert Woods,Wide Receiver,The_Chief,4,6.2,14.424464042500002,-8.224464042500003,Wide Receiver,Starter
+1,Royce Freeman,Running Back,The_Plainsmen,20,7.1000000000000005,9.739064775000003,-2.6390647750000022,Bench,Bench
+2,Royce Freeman,Running Back,The_Plainsmen,20,15.200000000000001,9.668551562,5.531448438000002,Bench,Bench
+1,Russell Wilson,Quarterback,The_Plainsmen,20,16.6,18.188465750000002,-1.588465750000001,Bench,Bench
+2,Russell Wilson,Quarterback,The_Plainsmen,20,24.2,17.879610561,6.3203894389999995,Bench,Bench
+1,Saints D/ST,Defense,The_Plainsmen,20,4,6.791116378,-2.791116378,Bench,Bench
+2,Saints D/ST,Defense,The_Plainsmen,20,4,5.2159877450000005,-1.2159877450000005,Bench,Bench
+1,Sammy Watkins,Wide Receiver,Palindrome_Tikkit,20,46.8,10.717115397699999,36.0828846023,Bench,Bench
+2,Sammy Watkins,Wide Receiver,Palindrome_Tikkit,23,10.9,15.6444827543,-4.7444827543,Flex,Starter
+1,Saquon Barkley,Running Back,Dallas_The boys,2,17.9,23.115309344000003,-5.215309344000005,Running Back,Starter
+2,Saquon Barkley,Running Back,Dallas_The boys,2,22.500000000000004,23.028357559,-0.5283575589999963,Running Back,Starter
+1,Sony Michel,Running Back,The_Chief,2,1.4000000000000001,11.883758334,-10.483758334,Running Back,Starter
+2,Sony Michel,Running Back,The_Chief,2,12.5,11.968553161000001,0.5314468389999991,Running Back,Starter
+1,Stefon Diggs,Wide Receiver,'R'm Chair_Quarterback,4,5.7,14.331195488,-8.631195488,Wide Receiver,Starter
+2,Stefon Diggs,Wide Receiver,'R'm Chair_Quarterback,20,9.9,14.6338776675,-4.7338776675,Bench,Bench
+1,Stephen Gostkowski,Kicker,The_Chief,17,16,8.335949909,7.664050091,Kicker,Starter
+2,Stephen Gostkowski,Kicker,The_Chief,17,6,8.182540561000001,-2.1825405610000015,Kicker,Starter
+1,Sterling Shepard,Wide Receiver,'R'm Chair_Quarterback,23,10.2,13.8786587976,-3.6786587976000007,Flex,Starter
+2,Sterling Shepard,Wide Receiver,'R'm Chair_Quarterback,20,0,0,0,Bench,Bench
+1,T.J. Hockenson,Tight End,NA,NA,25.1,7.051754304,18.048245696000002,NA,Starter
+2,T.J. Hockenson,Tight End,'R'm Chair_Quarterback,6,1.7000000000000002,9.138019632999999,-7.438019632999999,Tight End,Starter
+1,T.Y. Hilton,Wide Receiver,Compute _This!,4,28.700000000000003,12.778991723,15.921008277000002,Wide Receiver,Starter
+2,T.Y. Hilton,Wide Receiver,Compute _This!,4,14.3,13.342860080000003,0.9571399199999977,Wide Receiver,Starter
+1,Tarik Cohen,Running Back,Philly_Chapmaniacs,2,12.9,11.224650223000001,1.6753497769999992,Running Back,Starter
+2,Tarik Cohen,Running Back,Philly_Chapmaniacs,2,4.5,11.235898653000001,-6.735898653000001,Running Back,Starter
+1,Tevin Coleman,Running Back,Compute _This!,20,7.600000000000001,11.655203211,-4.0552032109999985,Bench,Bench
+1,Texans D/ST,Defense,NA,NA,-4,2.43721121,-6.43721121,NA,Starter
+2,Texans D/ST,Defense,Compute _This!,16,11,7.603956333,3.396043667,Defense,Starter
+1,Todd Gurley II,Running Back,The_Plainsmen,2,11.100000000000001,16.979200933999998,-5.879200933999996,Running Back,Starter
+2,Todd Gurley II,Running Back,The_Plainsmen,2,15.700000000000001,13.740985384,1.959014616000001,Running Back,Starter
+1,Tom Brady,Quarterback,The_Chief,20,25.64,18.217252347,7.422747653000002,Bench,Bench
+2,Tom Brady,Quarterback,The_Chief,0,24.66,19.995238294099998,4.664761705900002,Quarterback,Starter
+1,Tony Pollard,Running Back,'R'm Chair_Quarterback,20,2.4000000000000004,4.678987622200001,-2.2789876222000007,Bench,Bench
+1,Travis Kelce,Tight End,The_Chief,6,11.8,16.695729236000002,-4.895729236000001,Tight End,Starter
+2,Travis Kelce,Tight End,The_Chief,6,23.700000000000003,20.136662433999998,3.563337566000005,Tight End,Starter
+1,Trey Burton,Tight End,Analysis_Paralysis,20,0,0,0,Bench,Bench
+2,Trey Burton,Tight End,Analysis_Paralysis,20,2.5,7.982039541000001,-5.482039541000001,Bench,Bench
+1,Tyler Boyd,Wide Receiver,The OBJective_Functions,4,14.3,14.1355637949,0.16443620510000123,Wide Receiver,Starter
+2,Tyler Boyd,Wide Receiver,The OBJective_Functions,23,22.200000000000003,12.862739741800002,9.3372602582,Flex,Starter
+1,Tyler Lockett,Wide Receiver,Team_Ward,20,11.4,12.711331242000002,-1.3113312420000014,Bench,Bench
+2,Tyler Lockett,Wide Receiver,Team_Ward,20,17.9,12.074937621700002,5.825062378299997,Bench,Bench
+1,Tyreek Hill,Wide Receiver,Philly_Chapmaniacs,4,4.1,17.293652672799997,-13.193652672799997,Wide Receiver,Starter
+2,Tyreek Hill,Wide Receiver,Philly_Chapmaniacs,21,0,0,0,IR,Bench
+1,Tyrell Williams,Wide Receiver,The OBJective_Functions,20,22.5,12.449865289,10.050134711,Bench,Bench
+2,Tyrell Williams,Wide Receiver,The OBJective_Functions,4,15.600000000000001,14.794147071000001,0.8058529290000003,Wide Receiver,Starter
+1,Vance McDonald,Tight End,Palindrome_Tikkit,6,6,9.575599203,-3.5755992029999994,Tight End,Starter
+2,Vance McDonald,Tight End,Palindrome_Tikkit,6,22.8,9.092123668000001,13.707876332,Tight End,Starter
+1,Vikings D/ST,Defense,'R'm Chair_Quarterback,16,15,4.710992034,10.289007966,Defense,Starter
+2,Vikings D/ST,Defense,'R'm Chair_Quarterback,16,6,5.998254913,0.0017450869999997565,Defense,Starter
+1,Wil Lutz,Kicker,The_Plainsmen,17,14,9.567419632,4.432580368,Kicker,Starter
+2,Wil Lutz,Kicker,The_Plainsmen,17,12,7.869859291999999,4.130140708000001,Kicker,Starter
+1,Will Fuller V,Wide Receiver,Analysis_Paralysis,20,8.9,9.371417284000001,-0.47141728400000105,Bench,Bench
+2,Will Fuller V,Wide Receiver,Analysis_Paralysis,20,8,8.991401644,-0.9914016439999997,Bench,Bench
+1,Zach Ertz,Tight End,The_Plainsmen,6,10.4,13.174507136,-2.7745071360000004,Tight End,Starter
+2,Zach Ertz,Tight End,The_Plainsmen,6,17.2,14.519917026,2.6800829739999994,Tight End,Starter

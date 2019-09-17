@@ -1,0 +1,66 @@
+awayid,awaypoints,homeid,homepoints,winner,weekID,AwayTeam,HomeTeam
+2,137.62,9,97.9,Philly Chapmaniacs,1,Philly Chapmaniacs,Dallas The boys
+3,123.52,7,128.22,Compute This!,1,The Plainsmen,Compute This!
+6,134.74,4,108.16,Team Ward,1,Team Ward,The OBJective Functions
+1,109.3,5,119.8,Analysis Paralysis,1,'R'm Chair Quarterback,Analysis Paralysis
+10,129.56,8,156.1,The Chief,1,Palindrome Tikkit,The Chief
+6,0,3,0,The Plainsmen,2,Team Ward,The Plainsmen
+9,0,1,0,'R'm Chair Quarterback,2,Dallas The boys,'R'm Chair Quarterback
+2,0,10,0,Palindrome Tikkit,2,Philly Chapmaniacs,Palindrome Tikkit
+7,0,5,0,Analysis Paralysis,2,Compute This!,Analysis Paralysis
+4,0,8,0,The Chief,2,The OBJective Functions,The Chief
+10,0,1,0,'R'm Chair Quarterback,3,Palindrome Tikkit,'R'm Chair Quarterback
+5,0,3,0,The Plainsmen,3,Analysis Paralysis,The Plainsmen
+8,0,6,0,Team Ward,3,The Chief,Team Ward
+7,0,9,0,Dallas The boys,3,Compute This!,Dallas The boys
+4,0,2,0,Philly Chapmaniacs,3,The OBJective Functions,Philly Chapmaniacs
+8,0,5,0,Analysis Paralysis,4,The Chief,Analysis Paralysis
+1,0,7,0,Compute This!,4,'R'm Chair Quarterback,Compute This!
+10,0,4,0,The OBJective Functions,4,Palindrome Tikkit,The OBJective Functions
+3,0,9,0,Dallas The boys,4,The Plainsmen,Dallas The boys
+6,0,2,0,Philly Chapmaniacs,4,Team Ward,Philly Chapmaniacs
+4,0,7,0,Compute This!,5,The OBJective Functions,Compute This!
+9,0,5,0,Analysis Paralysis,5,Dallas The boys,Analysis Paralysis
+2,0,8,0,The Chief,5,Philly Chapmaniacs,The Chief
+3,0,1,0,'R'm Chair Quarterback,5,The Plainsmen,'R'm Chair Quarterback
+6,0,10,0,Palindrome Tikkit,5,Team Ward,Palindrome Tikkit
+3,0,2,0,Philly Chapmaniacs,6,The Plainsmen,Philly Chapmaniacs
+1,0,6,0,Team Ward,6,'R'm Chair Quarterback,Team Ward
+5,0,10,0,Palindrome Tikkit,6,Analysis Paralysis,Palindrome Tikkit
+7,0,8,0,The Chief,6,Compute This!,The Chief
+9,0,4,0,The OBJective Functions,6,Dallas The boys,The OBJective Functions
+2,0,1,0,'R'm Chair Quarterback,7,Philly Chapmaniacs,'R'm Chair Quarterback
+6,0,5,0,Analysis Paralysis,7,Team Ward,Analysis Paralysis
+10,0,7,0,Compute This!,7,Palindrome Tikkit,Compute This!
+8,0,9,0,Dallas The boys,7,The Chief,Dallas The boys
+4,0,3,0,The Plainsmen,7,The OBJective Functions,The Plainsmen
+5,0,2,0,Philly Chapmaniacs,8,Analysis Paralysis,Philly Chapmaniacs
+7,0,6,0,Team Ward,8,Compute This!,Team Ward
+9,0,10,0,Palindrome Tikkit,8,Dallas The boys,Palindrome Tikkit
+3,0,8,0,The Chief,8,The Plainsmen,The Chief
+1,0,4,0,The OBJective Functions,8,'R'm Chair Quarterback,The OBJective Functions
+2,0,7,0,Compute This!,9,Philly Chapmaniacs,Compute This!
+5,0,9,0,Dallas The boys,9,Analysis Paralysis,Dallas The boys
+4,0,6,0,Team Ward,9,The OBJective Functions,Team Ward
+1,0,3,0,The Plainsmen,9,'R'm Chair Quarterback,The Plainsmen
+8,0,10,0,Palindrome Tikkit,9,The Chief,Palindrome Tikkit
+6,0,9,0,Dallas The boys,10,Team Ward,Dallas The boys
+7,0,3,0,The Plainsmen,10,Compute This!,The Plainsmen
+10,0,2,0,Philly Chapmaniacs,10,Palindrome Tikkit,Philly Chapmaniacs
+5,0,1,0,'R'm Chair Quarterback,10,Analysis Paralysis,'R'm Chair Quarterback
+8,0,4,0,The OBJective Functions,10,The Chief,The OBJective Functions
+10,0,3,0,The Plainsmen,11,Palindrome Tikkit,The Plainsmen
+1,0,9,0,Dallas The boys,11,'R'm Chair Quarterback,Dallas The boys
+6,0,8,0,The Chief,11,Team Ward,The Chief
+5,0,7,0,Compute This!,11,Analysis Paralysis,Compute This!
+2,0,4,0,The OBJective Functions,11,Philly Chapmaniacs,The OBJective Functions
+8,0,1,0,'R'm Chair Quarterback,12,The Chief,'R'm Chair Quarterback
+3,0,5,0,Analysis Paralysis,12,The Plainsmen,Analysis Paralysis
+4,0,10,0,Palindrome Tikkit,12,The OBJective Functions,Palindrome Tikkit
+9,0,7,0,Compute This!,12,Dallas The boys,Compute This!
+2,0,6,0,Team Ward,12,Philly Chapmaniacs,Team Ward
+4,0,5,0,Analysis Paralysis,13,The OBJective Functions,Analysis Paralysis
+7,0,1,0,'R'm Chair Quarterback,13,Compute This!,'R'm Chair Quarterback
+8,0,2,0,Philly Chapmaniacs,13,The Chief,Philly Chapmaniacs
+9,0,3,0,The Plainsmen,13,Dallas The boys,The Plainsmen
+10,0,6,0,Team Ward,13,Palindrome Tikkit,Team Ward

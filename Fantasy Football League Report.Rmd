@@ -1,0 +1,328 @@
+---
+title: "Fantasy Football League Report"
+author: "Dusty Turner"
+date: "9/15/2019"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,	message = FALSE,	warning = FALSE)
+options(knitr.table.format = "html")
+library(tidyverse)
+library(kableExtra)
+library(formattable)
+playerdata = read_csv("FantasyFootballData.csv")
+leaguedata = read_csv("weekbyweekresults.csv")
+leaguedatasimple = read_csv("weekbyweekresultssimple.csv")
+week = 2
+```
+
+# League Update
+
+Hello all, welcome to OA Division Fantasy Football Week 2 Update!
+
+## Mug (and Plunger) Standings
+
+```{r}
+
+teams = 
+leaguedatasimple %>%
+  select(AwayTeam,HomeTeam)%>%
+  gather(direction, Team) %>%
+  select(Team) %>%
+  distinct()
+
+currentstandings = 
+leaguedatasimple %>%
+  filter(homepoints!=0) %>%
+  group_by(winner) %>%
+  mutate(Wins = n()) %>%
+  select(winner, Wins) %>%
+  rename(Team = winner) %>%
+  right_join(teams) %>%
+  mutate(Wins = replace_na(Wins, 0)) %>%
+  mutate(Losses = week - Wins-1) %>%
+  mutate(WinPerc =Wins/(Wins+Losses))
+
+weeksummedstandings =
+leaguedata %>%
+  filter(weekID <=2-1) %>%
+  mutate(Team = if_else(Location=="awaypoints",AwayTeam,HomeTeam)) %>%
+  group_by(Team) %>%
+  summarise(EveryWeekWins = sum(EWETW), EveryWeekLosses = sum(EWETL)) %>%
+  mutate(EveryWeekPerc = EveryWeekWins/(EveryWeekWins+EveryWeekLosses))
+
+standings = 
+  currentstandings %>%
+  left_join(weeksummedstandings) 
+
+leaguedatasimple %>%
+  filter(homepoints!=0) %>%
+  group_by(winner) %>%
+  mutate(Wins = n()) %>% ungroup() %>%
+  select(awaypoints,homepoints,AwayTeam,HomeTeam,weekID) %>%
+  gather(Location,Team,-weekID,-awaypoints,-homepoints) %>%
+  mutate(points = if_else(Location=="AwayTeam",awaypoints,homepoints)) %>% 
+  select(Team,points,weekID) %>%
+  group_by(weekID) %>%
+  filter(points == min(points) | points == max(points)) %>%
+  mutate(Award = if_else(points==max(points),"Mug","Plunger")) %>%
+  ungroup() %>%
+  count(Award, Team)  -> awards
+
+leaguedatasimple %>%
+  filter(homepoints!=0) %>%
+  filter(weekID == max(weekID)) %>%
+  select(awaypoints,homepoints,AwayTeam,HomeTeam,weekID) %>%
+  gather(Location,Team,-weekID,-awaypoints,-homepoints) %>%
+  mutate(points = if_else(Location=="AwayTeam",awaypoints,homepoints)) %>% 
+  select(Team,points,weekID) %>%
+  filter(points == min(points) | points == max(points)) %>%
+  mutate(Award = if_else(points==max(points),"Mug","Plunger")) %>%
+  ungroup() %>%
+  count(Award, Team) %>%
+  arrange(Award) -> awardsthisweek
+
+```
+
+Everyone congratulate `r awardsthisweek$Team[1]` for winning the mug.
+
+Hardy cajoling goes out to `r awardsthisweek$Team[2]` for earning the plunger this week.  Hats off for your hard work1
+
+Here is the current Mug tally!
+
+```{r}
+awards %>%
+  filter(Award=="Mug") %>% 
+  kable("html", escape = F) %>%
+  kable_styling("hover", full_width = F)
+```
+
+Here is the current Plunger tally!
+
+```{r}
+awards %>%
+  filter(Award=="Plunger") %>% 
+  kable("html", escape = F) %>%
+  kable_styling("hover", full_width = F)
+```
+
+
+## Standings
+
+The standings are current through week `r week`.
+
+Every week wins are how many wins your team would have if you played every team every week.  Every week losses and every week win percentage are calculated accordingly.  This is meant to be a measure of how 'lucky' your team is. 
+
+```{r}
+standings %>%
+  mutate(EveryWeekPerc = round(EveryWeekPerc,2)) %>%
+  arrange(desc(WinPerc)) %>%
+      kable("html", escape = F) %>%
+  kable_styling("hover", full_width = F) 
+
+```
+
+
+A graphical view of the above information.  Low and right are lucky. Up and left are unlucky.
+
+```{r}
+standings %>%
+  ggplot(aes(x=WinPerc,y=EveryWeekPerc, color = WinPerc)) +
+  geom_point() +
+  geom_abline() +
+  annotate("text", x = .9, y = .05, label = "Lucky", color = "green") +
+  annotate("text", x = .1, y = .95, label = "Unlucky", color = "darkgoldenrod") +
+  annotate("text", x = .9, y = .95, label = "Good", color = "blue") +
+  annotate("text", x = .1, y = .05, label = "Bad", color = "red") +
+  ggrepel::geom_text_repel(aes(label = Team)) +
+  labs(x="Traditional Winning Percentage", y = "Every Team Every Week Win Percentage",
+       title = "Are You As Good (or bad) As You Should Be?",
+       caption = "The lighter the blue the higher the traditional win percentage.") +
+  theme(legend.position = "none")
+  
+```
+
+
+### What Teams Are Living Up to Expectations This Week?
+
+```{r}
+WeeklyEstimates = 
+  playerdata %>% filter(!is.na(Team))
+```
+
+
+```{r}
+WeeklyEstimates %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(ActualMinusPredicted)) %>%
+  filter(scoringPeriodId==week) %>%
+  group_by(Team, scoringPeriodId, Starter) %>% 
+  summarise(TeamActual = sum(Actual),
+            TeamPredicted = sum(Predicted)) %>%
+  ungroup() %>%
+  select(TeamActual,TeamPredicted) %>%
+  gather(Team, Points) %>%
+  summarise(max = max(Points), min = min(Points)) -> limvec
+
+WeeklyEstimates %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(ActualMinusPredicted)) %>%
+  filter(scoringPeriodId==week) %>%
+  group_by(Team, scoringPeriodId, Starter) %>% 
+  # filter(Team == "'R'm Chair_Quarterback") %>% arrange(Starter) %>%
+  summarise(TeamActual = sum(Actual),
+            TeamPredicted = sum(Predicted)) %>%
+  ungroup() %>%
+  mutate(Team = str_replace(Team,"_"," ")) %>%
+  mutate(TeamActualMinusPredicted = TeamActual-TeamPredicted) %>%
+  ggplot(aes(x=TeamPredicted,y=TeamActual, color = TeamActualMinusPredicted)) +
+  geom_point() +
+  geom_abline() +
+  xlim(limvec$min,limvec$max) +   ylim(limvec$min,limvec$max) +
+  ggrepel::geom_text_repel(aes(label = Team), max.iter = 10000) +
+  labs(x="Predicted Points Scored", y="Actual Points Scored", title = paste0("Projected vs Actual Points Scored in Week ", week), color = "Actual-Predicted") 
+```
+
+### What Teams Are Living Up to Expectations All Weeks?
+
+
+```{r}
+WeeklyEstimates %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(ActualMinusPredicted)) %>%
+  # filter(scoringPeriodId==week) %>%
+  group_by(Team, Starter) %>% 
+  summarise(TeamActual = sum(Actual),
+            TeamPredicted = sum(Predicted)) %>%
+  ungroup() %>%
+  select(TeamActual,TeamPredicted) %>%
+  gather(Team, Points) %>%
+  summarise(max = max(Points), min = min(Points)) -> limvec
+
+WeeklyEstimates %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(ActualMinusPredicted)) %>%
+  # filter(scoringPeriodId==week) %>%
+  group_by(Team, Starter) %>% 
+  # filter(Team == "'R'm Chair_Quarterback") %>% arrange(Starter) %>%
+  summarise(TeamActual = sum(Actual),
+            TeamPredicted = sum(Predicted)) %>%
+  mutate(TeamActualMinusPredicted = TeamActual-TeamPredicted) %>%
+  ungroup() %>%
+  mutate(Team = str_replace(Team,"_"," ")) %>%
+  ggplot(aes(x=TeamPredicted,y=TeamActual, color = TeamActualMinusPredicted)) +
+  geom_point() +
+  geom_abline() +
+  xlim(limvec$min,limvec$max) +   ylim(limvec$min,limvec$max) +
+  ggrepel::geom_text_repel(aes(label = Team), max.iter = 10000) +
+  labs(x="Predicted Points Scored", y="Actual Points Scored", title = paste0("Projected vs Actual Points Scored All Season"), color = "Actual-Predicted") 
+```
+
+
+
+### Whose Team's Starters Are Meeting Expectations?
+
+This table shows the Team's actual points scored minus their projected points scored in week `r week`.
+
+```{r echo=FALSE}
+
+## expectation performance by most recent week
+WeeklyEstimates %>%
+  filter(!is.na(Team)) %>%
+  arrange(-ActualMinusPredicted) %>%
+  group_by(Team, scoringPeriodId) %>%
+  summarise(MeanActualMinusPredicted = mean(ActualMinusPredicted, na.rm = TRUE)) %>%
+  arrange(MeanActualMinusPredicted) %>%
+  filter(scoringPeriodId==week) %>%
+  select(-scoringPeriodId) %>% 
+  rename(Delta = MeanActualMinusPredicted) %>%
+  mutate(
+      Delta = round(Delta,2),
+      Delta = ifelse(Delta > 0,
+                  cell_spec(Delta, "html", color = "green", bold = T),
+                  cell_spec(Delta, "html", color = "red", italic = T))
+    ) %>%
+    kable("html", escape = F) %>%
+  kable_styling("hover", full_width = F) 
+```
+
+This table show's how each team has actually performed vs their projection (on average) all season.
+
+```{r}
+## expectation performance overall
+WeeklyEstimates %>%
+  filter(!is.na(Team)) %>%
+  arrange(-ActualMinusPredicted) %>%
+  group_by(Team) %>%
+  summarise(MeanActualMinusPredicted = mean(ActualMinusPredicted, na.rm = TRUE)) %>%
+  arrange(MeanActualMinusPredicted) %>%
+    rename(Delta = MeanActualMinusPredicted) %>%
+    mutate(
+      Delta = round(Delta,2),
+      Delta = ifelse(Delta > 0,
+                  cell_spec(Delta, "html", color = "green", bold = T),
+                  cell_spec(Delta, "html", color = "red", italic = T))
+    ) %>%
+    kable("html", escape = F) %>%
+  kable_styling("hover", full_width = F) 
+```
+
+
+
+## A Look Across the League: 
+
+### What Positions Are Predicted Most Accurately
+
+```{r}
+WeeklyEstimates %>% as_tibble() %>% 
+  filter(!is.na(ActualMinusPredicted)) %>%
+  group_by(Position) %>%
+  mutate(n = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x=ActualMinusPredicted)) +
+  geom_histogram(binwidth = 5) +
+  facet_wrap(~forcats::fct_reorder(Position,-n), ncol = 1) +
+  geom_vline(aes(xintercept = 0, color = "red")) +
+  theme(legend.position = "none", 
+        axis.ticks.y = element_blank(), 
+        axis.text.y = element_blank()) +
+  labs(title = "Histogram of How Bad (or Good) ESPN Projects Each Position", 
+       y = "", x = "Actual Points Scored Minus Predicted")
+```
+
+
+
+
+<!-- ```{r} -->
+
+<!-- WeeklyEstimates %>% -->
+<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
+<!--   group_by(Team, scoringPeriodId, Starter)  -->
+
+
+<!-- WeeklyEstimates %>% as_tibble() %>%  -->
+<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
+<!--   ggplot(aes(x=ActualMinusPredicted)) + -->
+<!--   geom_histogram() -->
+
+<!-- WeeklyEstimates %>% as_tibble() %>%  -->
+<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
+<!--   ggplot(aes(x=Predicted,y=Actual)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth(method = "lm") -->
+
+
+<!-- WeeklyEstimates %>% as_tibble() %>%  -->
+<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
+<!--   ggplot(aes(x=Predicted,y=Actual, color = Team)) + -->
+<!--   geom_point() + -->
+<!--   # facet_grid(Starter~Team) + -->
+<!--   # facet_wrap(~Team, ncol = 2) + -->
+<!--   geom_abline(aes(slope =1, intercept = 0),color = "red") -->
+<!--   # theme(legend.position = "none") -->
+
+<!-- ``` -->
