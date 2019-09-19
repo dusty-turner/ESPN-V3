@@ -2,6 +2,10 @@ library(tidyverse)
 
 ##### Gets individual player performance
 
+gofunction()
+
+gofunction = function(){
+
 playerperformance = NULL
 
 for (i in 1:2) {
@@ -231,7 +235,7 @@ write_csv("weekbyweekresults.csv")
 season1 %>%
 write_csv("weekbyweekresultssimple.csv")
 
-
+}
 ###HTML Documents
 
 WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist

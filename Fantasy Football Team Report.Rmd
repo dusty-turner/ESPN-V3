@@ -46,15 +46,13 @@ ffdata %>%
   group_by(Team) %>%
   summarise(score = sum(Actual)) %>%
   filter(score==max(score)|score==min(score)) -> topandbottom
-
-# ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avoiding the Plunger" )
 ```
 
 ### Week Summary
 
 1. This week, your team scored `r weakteamsum$sum`; compared to the league average of `r round(weekleaguemean$mean*9,2)`.
 
-2. The Plunger winner is `r topandbottom$Team[1]`.  `r ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avoiding the Plunger" )`!
+2. The Plunger winner is `r topandbottom$Team[1]`.  `r ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avoiding the Plunger!")
 `
 
 3. The Mug winner is `r topandbottom$Team[2]`. `r ifelse(params$team==topandbottom$Team[2], "Congradulations on winning the Mug!","Sorry, you didn't win the mug." )`
@@ -69,19 +67,21 @@ ffdata %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   select(Actual,Predicted,Player,ActualMinusPredicted) %>%
-  mutate(order = rank(Actual)) %>%
-  gather(Type,Points,-Player,-ActualMinusPredicted,-order) %>%
-  ggplot(aes(x=Points,y=1, group = Player)) +
-  geom_point(aes(color = Type, size = Type)) +
-  geom_line(aes(color = Type)) +
-  geom_vline(aes(xintercept = weekleaguemean$mean)) +
+  mutate(order = rank(Predicted)) %>%
+  mutate(Performance = if_else(Actual>Predicted,"Overachiever","Underachiever")) %>%
+  ggplot(aes(group = Player)) +
+  geom_point(aes(x=Actual,y=1), size = 1) +
+  geom_point(aes(x=Predicted,y=1), size = 5) +
+  geom_segment(aes(x=Predicted,xend=Actual,y=1,yend=1,color = Performance), arrow = arrow()) +
+  # geom_vline(aes(xintercept = weekleaguemean$mean)) +
   # facet_grid(forcats::fct_reorder(Player,order)~.) +
   facet_wrap(~forcats::fct_reorder(Player,order), ncol = 1) +
   theme(axis.text.y = element_blank(),
-        axis.ticks.y = element_blank())  +
-  scale_color_manual(values = c("blue","tan")) +
-  labs(y="", x = "Points: Predicted and Actual", title = "Did Your Team Over or Under Achieve?",
-       subtitle = "Blue Dots on the left are Underachievers", caption = "Black line denoting the league average score is included for refrence")
+        axis.ticks.y = element_blank())+
+        # legend.position = "none")  +
+  scale_color_manual(values = c("green","red")) +
+  labs(y="", x = "Points: Predicted (Big Dot) and Actual (Small Dot) Performance", title = "Did Your Team Over or Under Achieve?",
+       caption = "Black line denoting the league average score is included for refrence")
 
 ```
 

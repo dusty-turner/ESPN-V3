@@ -17,7 +17,8 @@ library(formattable)
 playerdata = read_csv("FantasyFootballData.csv")
 leaguedata = read_csv("weekbyweekresults.csv")
 leaguedatasimple = read_csv("weekbyweekresultssimple.csv")
-week = 2
+week = leaguedatasimple %>% select(awaypoints) %>% filter(awaypoints!=0) %>% nrow()/5
+
 ```
 
 # League Update
@@ -41,15 +42,16 @@ leaguedatasimple %>%
   group_by(winner) %>%
   mutate(Wins = n()) %>%
   select(winner, Wins) %>%
+  distinct() %>%
   rename(Team = winner) %>%
   right_join(teams) %>%
   mutate(Wins = replace_na(Wins, 0)) %>%
-  mutate(Losses = week - Wins-1) %>%
+  mutate(Losses = week - Wins) %>%
   mutate(WinPerc =Wins/(Wins+Losses))
 
 weeksummedstandings =
 leaguedata %>%
-  filter(weekID <=2-1) %>%
+  filter(weekID <=2) %>%
   mutate(Team = if_else(Location=="awaypoints",AwayTeam,HomeTeam)) %>%
   group_by(Team) %>%
   summarise(EveryWeekWins = sum(EWETW), EveryWeekLosses = sum(EWETL)) %>%
@@ -271,6 +273,149 @@ WeeklyEstimates %>%
   kable_styling("hover", full_width = F) 
 ```
 
+## Optimal Lineup
+
+Who is the best coach?  How much have you missed your optimal line up this week.  The plot below reflects how many points you scored vs your best line up.
+
+```{r include=FALSE}
+ranked = 
+playerdata %>%
+  select(scoringPeriodId,Player,Position,Team,Actual) %>%
+  group_by(Team,Position,scoringPeriodId) %>%
+  mutate(Rank = rank(-Actual, ties.method = "first")) %>%
+  arrange(Team) %>%
+  filter(!is.na(Team))
+
+rankedqbs =
+ranked %>%
+  filter(Position == "Quarterback") %>%
+  filter(Rank == 1) %>%
+  mutate(PosOrder = 1)
+
+rankedrbs =
+ranked %>%
+  filter(Position == "Running Back") %>%
+  filter(Rank <= 2) %>%
+  mutate(PosOrder = 2)
+
+rankedwrs =
+ranked %>%
+  filter(Position == "Wide Receiver") %>%
+  filter(Rank <= 2) %>%
+  mutate(PosOrder = 3)
+
+rankedtes =
+ranked %>%
+  filter(Position == "Tight End") %>%
+  filter(Rank <= 1) %>%
+  mutate(PosOrder = 4)
+
+rankedk =
+ranked %>%
+  filter(Position == "Kicker") %>%
+  filter(Rank <= 1) %>%
+  mutate(PosOrder = 6)
+
+rankeddef =
+ranked %>%
+  filter(Position == "Defense") %>%
+  filter(Rank <= 1) %>%
+  mutate(PosOrder = 7)
+
+rankedfl =
+ranked %>%
+  anti_join(
+    bind_rows(rankedrbs,rankedwrs,rankedtes)
+  ) %>%
+  filter(Position %in% c("Running Back", "Wide Receiver", "Tight End")) %>%
+  group_by(scoringPeriodId,Team) %>%
+  mutate(Rank = rank(-Actual, ties.method = "first")) %>%
+  filter(Rank==1) %>%
+  mutate(Position="Flex") %>%
+  mutate(PosOrder = 5)
+
+optimallineup = 
+bind_rows(rankedqbs,rankedrbs,rankedwrs,rankedtes,rankedfl,rankeddef,rankedk) %>%
+  arrange(Team,scoringPeriodId,PosOrder)
+```
+
+
+```{r}
+optimallineup %>% 
+  mutate(Lineup="Best") %>%
+  bind_rows(
+
+WeeklyEstimates %>% as_tibble() %>%
+  filter(Starter=="Starter") %>%
+  select(scoringPeriodId,Player,Position,Team,Actual) %>%
+  mutate(Lineup="Actual")
+) %>%
+  group_by(Team,Lineup) %>%
+  summarise(Points = sum(Actual)) %>% 
+  spread(Lineup,Points) %>% 
+  ungroup() %>%
+  mutate(Team = str_replace(Team,"_"," ")) %>%
+  filter(!is.na(Team)) %>%
+  mutate(MissedBestBy = Best-Actual) -> data 
+
+limmax = max(data$MissedBestBy)
+# limmin = min(data$Actual,data$Best)
+
+data %>%
+  ggplot(aes(x=Actual,y=MissedBestBy, color = MissedBestBy)) +
+  geom_point() + 
+  # geom_abline() +
+  ggrepel::geom_text_repel(aes(label = paste0(Team,": " ,round(Best,0))), max.iter = 100000) +
+  theme(legend.position = "none") +
+  # xlim(limmin,limmax) + 
+  ylim(0,limmax)+
+  labs(x="Actual Points Scored", y = "Points Short of Optimal Line Up", 
+       title = "How Good of a Coach Are You?",
+       subtitle = "Closer to the x axis means better coach",
+       caption = "Low and right means good player selection and high points scored.")
+```
+
+How good of a coach were you in week `r week`?
+
+```{r}
+optimallineup %>% 
+  mutate(Lineup="Best") %>%
+  bind_rows(
+
+WeeklyEstimates %>% as_tibble() %>%
+  filter(Starter=="Starter") %>%
+  select(scoringPeriodId,Player,Position,Team,Actual) %>%
+  mutate(Lineup="Actual")
+) %>%
+  filter(scoringPeriodId == week) %>%
+  group_by(Team,Lineup) %>%
+  summarise(Points = sum(Actual)) %>% 
+  spread(Lineup,Points) %>% 
+  ungroup() %>%
+  mutate(Team = str_replace(Team,"_"," ")) %>%
+  filter(!is.na(Team)) %>%
+  mutate(MissedBestBy = Best-Actual) -> data 
+
+limmax = max(data$MissedBestBy)
+
+
+data %>%
+  filter(week == week) %>%
+  mutate(MissedBestBy = Best-Actual) %>%
+  ggplot(aes(x=Actual,y=MissedBestBy, color = MissedBestBy)) +
+  geom_point() + 
+  # geom_abline() +
+  ggrepel::geom_text_repel(aes(label = paste0(Team,": " ,round(Best,0))), max.iter = 100000) +
+  theme(legend.position = "none") +
+  # xlim(limmin,limmax) + 
+  ylim(0,limmax)+
+  labs(x="Actual Points Scored", y = "Points Short of Optimal Line Up", 
+       title = "How Good of a Coach Are You?",
+       subtitle = "Closer to the x axis means better coach",
+       caption = "Low and right means good player selection and high points scored.")
+
+```
+
 
 
 ## A Look Across the League: 
@@ -284,7 +429,8 @@ WeeklyEstimates %>% as_tibble() %>%
   mutate(n = n()) %>%
   ungroup() %>%
   ggplot(aes(x=ActualMinusPredicted)) +
-  geom_histogram(binwidth = 5) +
+  geom_density(aes(fill = Position)) +
+  geom_histogram(aes(fill = Position)) +
   facet_wrap(~forcats::fct_reorder(Position,-n), ncol = 1) +
   geom_vline(aes(xintercept = 0, color = "red")) +
   theme(legend.position = "none", 
@@ -293,7 +439,6 @@ WeeklyEstimates %>% as_tibble() %>%
   labs(title = "Histogram of How Bad (or Good) ESPN Projects Each Position", 
        y = "", x = "Actual Points Scored Minus Predicted")
 ```
-
 
 
 
