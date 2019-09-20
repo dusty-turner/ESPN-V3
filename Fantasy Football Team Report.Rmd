@@ -20,6 +20,10 @@ options(DT.options = list(pageLength = 100, language = list(search = 'Filter:'))
 
 ```{r, echo=FALSE}
 ffdata = read_csv("FantasyFootballData.csv")
+leaguedata = read_csv("weekbyweekresults.csv")
+leaguedatasimple = read_csv("weekbyweekresultssimple.csv")
+WeeklyEstimates = 
+  ffdata %>% filter(!is.na(Team))
 ```
 
 ```{r}
@@ -57,9 +61,9 @@ ffdata %>%
 
 3. The Mug winner is `r topandbottom$Team[2]`. `r ifelse(params$team==topandbottom$Team[2], "Congradulations on winning the Mug!","Sorry, you didn't win the mug." )`
 
-### Visually
+### Did Your Team Measure Up To Expectations
 
-```{r}
+```{r, fig.align='center'}
 ffdata %>%
   # filter(Team=="'R'm Chair_Quarterback") %>%
   # filter(scoringPeriodId==1) %>%
@@ -94,8 +98,127 @@ ffdata %>%
   mutate(ActualMinusPredicted = round(ActualMinusPredicted,2)) %>%
   arrange(desc(Starter),playerrosterslot) %>%
   select(Player,Position,SlottedPosition,Starter,Actual,Predicted,ActualMinusPredicted) %>%
-  DT::datatable(escape = FALSE) %>%
+  DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) %>%
   formatStyle('ActualMinusPredicted', backgroundColor = styleInterval(c(-100,-10,-5,0,5,10,100),  c("black","red","lightpink","khaki","khaki","lightgreen","green","black")))
 ```
 
+### Optimal Lineup
+
+How close were you to achieving your optimal lineup?
+
+```{r include=FALSE}
+ranked = 
+ffdata %>%
+  select(scoringPeriodId,Player,Position,Team,Actual) %>%
+  group_by(Team,Position,scoringPeriodId) %>%
+  mutate(Rank = rank(-Actual, ties.method = "first")) %>%
+  arrange(Team) %>%
+  filter(!is.na(Team))
+
+rankedqbs =
+ranked %>%
+  filter(Position == "Quarterback") %>%
+  filter(Rank == 1) %>%
+  mutate(PosOrder = 1)
+
+rankedrbs =
+ranked %>%
+  filter(Position == "Running Back") %>%
+  filter(Rank <= 2) %>%
+  mutate(PosOrder = 2)
+
+rankedwrs =
+ranked %>%
+  filter(Position == "Wide Receiver") %>%
+  filter(Rank <= 2) %>%
+  mutate(PosOrder = 3)
+
+rankedtes =
+ranked %>%
+  filter(Position == "Tight End") %>%
+  filter(Rank <= 1) %>%
+  mutate(PosOrder = 4)
+
+rankedk =
+ranked %>%
+  filter(Position == "Kicker") %>%
+  filter(Rank <= 1) %>%
+  mutate(PosOrder = 6)
+
+rankeddef =
+ranked %>%
+  filter(Position == "Defense") %>%
+  filter(Rank <= 1) %>%
+  mutate(PosOrder = 7)
+
+rankedfl =
+ranked %>%
+  anti_join(
+    bind_rows(rankedrbs,rankedwrs,rankedtes)
+  ) %>%
+  filter(Position %in% c("Running Back", "Wide Receiver", "Tight End")) %>%
+  group_by(scoringPeriodId,Team) %>%
+  mutate(Rank = rank(-Actual, ties.method = "first")) %>%
+  filter(Rank==1) %>%
+  mutate(Position="Flex") %>%
+  mutate(PosOrder = 5)
+
+optimallineup = 
+bind_rows(rankedqbs,rankedrbs,rankedwrs,rankedtes,rankedfl,rankeddef,rankedk) %>%
+  arrange(Team,scoringPeriodId,PosOrder)
+```
+
+
+```{r}
+WeeklyEstimates1 = 
+WeeklyEstimates %>%
+  left_join(
+    tibble(SlottedPosition = c("Quarterback", "Running Back","Wide Receiver","Tight End", "Flex", "Kicker", "Defense"),
+           PosOrder = 1:7)
+  )
+
+data =
+optimallineup %>% 
+  mutate(Lineup="Best") %>%
+  bind_rows(
+
+  WeeklyEstimates1 %>% as_tibble() %>%
+  filter(Starter=="Starter") %>%
+  select(scoringPeriodId,Player,SlottedPosition,Team,Actual,PosOrder) %>%
+  mutate(Lineup="Actual") %>%
+  rename(Position = SlottedPosition) %>%
+  arrange(Team,scoringPeriodId,PosOrder)
+) %>%
+  filter(Team==params$team) %>%
+  # filter(Team=="'R'm Chair_Quarterback") %>%
+  rename(Week = scoringPeriodId) %>%
+  ungroup()
+
+data %>%
+  filter(Lineup=="Best") %>%
+  rename(BestScored = Actual, BestPlayer = Player) %>%
+  select(Week,Position,BestPlayer,BestScored) %>%
+  bind_cols(
+    data %>%
+  filter(Lineup=="Actual") %>%
+  rename(ActualScored = Actual, ActualPlayer = Player) %>%
+  select(ActualPlayer,ActualScored)
+  ) %>%
+  mutate(Difference = round(BestScored-ActualScored,2)) %>%
+  arrange(desc(Week)) %>%
+  DT::datatable(options = list(lengthMenu = c(9,18,27),pageLength = 9))
+
+# data %>%
+#   ggplot(aes(x=Actual,y=MissedBestBy, color = MissedBestBy)) +
+#   geom_point() + 
+#   # geom_abline() +
+#   ggrepel::geom_text_repel(aes(label = paste0(Team,": " ,round(Best,0))), max.iter = 100000) +
+#   theme(legend.position = "none") +
+#   # xlim(limmin,limmax) + 
+#   ylim(0,limmax)+
+#   labs(x="Actual Points Scored", y = "Points Short of Optimal Line Up", 
+#        title = "How Good of a Coach Are You?",
+#        subtitle = "Closer to the x axis means better coach",
+#        caption = "Low and right means good player selection and high points scored.")
+```
 
