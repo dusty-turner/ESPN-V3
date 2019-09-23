@@ -5,7 +5,7 @@ library(tidyverse)
 gofunction()
 
 gofunction = function(){
-
+library(tidyverse)
 playerperformance = NULL
 
 for (i in 1:2) {

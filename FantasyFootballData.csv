@@ -66,6 +66,7 @@ scoringPeriodId,Player,Position,Team,playerrosterslot,Actual,Predicted,ActualMin
 2,Dak Prescott,Quarterback,'R'm Chair_Quarterback,20,27.659999999999997,19.462384585000002,8.197615414999994,Bench,Bench
 1,Dalvin Cook,Running Back,Dallas_The boys,2,26,16.58289751,9.417102490000001,Running Back,Starter
 2,Dalvin Cook,Running Back,Dallas_The boys,2,28.099999999999998,15.903669794999999,12.196330204999999,Running Back,Starter
+0,Damien Williams,Running Back,NA,NA,NA,0,NA,NA,Starter
 1,Damien Williams,Running Back,'R'm Chair_Quarterback,20,18.5,12.186201061999999,6.3137989380000015,Bench,Bench
 2,Damien Williams,Running Back,'R'm Chair_Quarterback,2,8.600000000000001,13.885573442000002,-5.2855734420000005,Running Back,Starter
 1,Dante Pettis,Wide Receiver,Philly_Chapmaniacs,20,1.7000000000000002,10.163918494999999,-8.463918494999998,Bench,Bench
@@ -88,7 +89,7 @@ scoringPeriodId,Player,Position,Team,playerrosterslot,Actual,Predicted,ActualMin
 1,Delanie Walker,Tight End,Compute _This!,20,22.5,9.348344113,13.151655887,Bench,Bench
 2,Delanie Walker,Tight End,Compute _This!,6,7.9,9.126807917999999,-1.2268079179999987,Tight End,Starter
 1,Derrick Henry,Running Back,Team_Ward,23,28.9,13.800856158999999,15.099143841,Flex,Starter
-2,Derrick Henry,Running Back,Team_Ward,2,17.3,15.319959148000002,1.9800408519999984,Running Back,Starter
+2,Derrick Henry,Running Back,Team_Ward,2,17.400000000000002,15.319959148000002,2.0800408519999998,Running Back,Starter
 1,Derrius Guice,Running Back,'R'm Chair_Quarterback,20,6.8,12.716159191,-5.916159190999999,Bench,Bench
 1,DeSean Jackson,Wide Receiver,NA,NA,35.4,8.872713483699998,26.527286516300002,NA,Starter
 2,DeSean Jackson,Wide Receiver,Compute _This!,20,0,11.716223531100002,-11.716223531100002,Bench,Bench
@@ -277,7 +278,7 @@ scoringPeriodId,Player,Position,Team,playerrosterslot,Actual,Predicted,ActualMin
 1,Saquon Barkley,Running Back,Dallas_The boys,2,17.9,23.115309344000003,-5.215309344000005,Running Back,Starter
 2,Saquon Barkley,Running Back,Dallas_The boys,2,22.500000000000004,23.028357559,-0.5283575589999963,Running Back,Starter
 1,Sony Michel,Running Back,The_Chief,2,1.4000000000000001,11.883758334,-10.483758334,Running Back,Starter
-2,Sony Michel,Running Back,The_Chief,2,12.5,11.968553161000001,0.5314468389999991,Running Back,Starter
+2,Sony Michel,Running Back,The_Chief,2,12.3,11.968553161000001,0.3314468389999998,Running Back,Starter
 1,Stefon Diggs,Wide Receiver,'R'm Chair_Quarterback,4,5.7,14.331195488,-8.631195488,Wide Receiver,Starter
 2,Stefon Diggs,Wide Receiver,'R'm Chair_Quarterback,20,9.9,14.6338776675,-4.7338776675,Bench,Bench
 1,Stephen Gostkowski,Kicker,The_Chief,17,16,8.335949909,7.664050091,Kicker,Starter

@@ -17,7 +17,8 @@ library(formattable)
 playerdata = read_csv("FantasyFootballData.csv")
 leaguedata = read_csv("weekbyweekresults.csv")
 leaguedatasimple = read_csv("weekbyweekresultssimple.csv")
-week = leaguedatasimple %>% select(awaypoints) %>% filter(awaypoints!=0) %>% nrow()/5
+week = leaguedatasimple %>% select(awaypoints) %>% as.data.frame() %>%
+  filter(awaypoints!=0) %>% nrow()/5
 
 ```
 
