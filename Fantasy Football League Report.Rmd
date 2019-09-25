@@ -1,7 +1,7 @@
 ---
 title: "Fantasy Football League Report"
 author: "Dusty Turner"
-date: "9/15/2019"
+date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   prettydoc::html_pretty:
     theme: cayman
@@ -24,7 +24,7 @@ week = leaguedatasimple %>% select(awaypoints) %>% as.data.frame() %>%
 
 # League Update
 
-Hello all, welcome to OA Division Fantasy Football Week 2 Update!
+Hello all, welcome to OA Division Fantasy Football Week `r week` Update!
 
 ## Mug (and Plunger) Standings
 
@@ -52,7 +52,7 @@ leaguedatasimple %>%
 
 weeksummedstandings =
 leaguedata %>%
-  filter(weekID <=2) %>%
+  filter(weekID <=week) %>%
   mutate(Team = if_else(Location=="awaypoints",AwayTeam,HomeTeam)) %>%
   group_by(Team) %>%
   summarise(EveryWeekWins = sum(EWETW), EveryWeekLosses = sum(EWETL)) %>%
@@ -161,8 +161,8 @@ WeeklyEstimates =
 ```{r}
 WeeklyEstimates %>%
   filter(Starter=="Starter") %>%
-  filter(!is.na(ActualMinusPredicted)) %>%
-  filter(scoringPeriodId==week) %>%
+  filter(!is.na(ActualMinusPredicted)) %>% 
+  filter(scoringPeriodId==week) %>% 
   group_by(Team, scoringPeriodId, Starter) %>% 
   summarise(TeamActual = sum(Actual),
             TeamPredicted = sum(Predicted)) %>%
@@ -387,7 +387,7 @@ WeeklyEstimates %>% as_tibble() %>%
   filter(Starter=="Starter") %>%
   select(scoringPeriodId,Player,Position,Team,Actual) %>%
   mutate(Lineup="Actual")
-) %>%
+) %>% 
   filter(scoringPeriodId == week) %>%
   group_by(Team,Lineup) %>%
   summarise(Points = sum(Actual)) %>% 

@@ -1,5 +1,5 @@
 library(tidyverse)
-
+weeks=3
 ##### Gets individual player performance
 
 gofunction()
@@ -8,7 +8,7 @@ gofunction = function(){
 library(tidyverse)
 playerperformance = NULL
 
-for (i in 1:2) {
+for (i in 1:weeks) {
   base = "http://fantasy.espn.com/apis/v3/games/ffl/seasons/"
   year = "2019"
   mid = "/segments/0/leagues/"
@@ -83,7 +83,7 @@ playerperformance =
 ## gets team names and records
 PlayerTeamDF = NULL
 
-for (i in 1:2) {
+for (i in 1:weeks) {
   base = "http://fantasy.espn.com/apis/v3/games/ffl/seasons/"
   year = "2019"
   mid = "/segments/0/leagues/"
@@ -236,10 +236,13 @@ season1 %>%
 write_csv("weekbyweekresultssimple.csv")
 
 }
+
+gofunction()
+
 ###HTML Documents
 
 WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist
-currentweek = 2
+currentweek = 3
 # for (i in 1:length(uiclist)) {
 for (i in 1:10) {
   # i=1
