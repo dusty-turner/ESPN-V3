@@ -1,18 +1,51 @@
 library(tidyverse)
 weeks=3
+leagueID = "89417258"
+year = "2019"
+
+PositionDF =
+  tibble(
+    PositionId = c(1, 2, 3, 4, 5, 16),
+    Position = c(
+      "Quarterback",
+      "Running Back",
+      "Wide Receiver",
+      "Tight End",
+      "Kicker",
+      "Defense"
+    )
+  )
+
+PlayerSlotIDs = tibble(
+  playerrosterslot = c(0, 2, 4, 6, 16, 17, 20, 21, 23),
+  SlottedPosition = c(
+    "Quarterback",
+    "Running Back",
+    "Wide Receiver",
+    "Tight End",
+    "Defense",
+    "Kicker",
+    "Bench",
+    "IR",
+    "Flex"
+  )
+)
+
+teamiddf = tibble(
+  id = c(1:10),
+  team = c("'R'm Chair Quarterback", "Philly Chapmaniacs", "The Plainsmen", "The OBJective Functions", "Analysis Paralysis", 
+           "Team Ward", "Compute This!", "The Chief", "Dallas The boys", "Palindrome Tikkit")
+)
+
 ##### Gets individual player performance
 
-gofunction()
-
-gofunction = function(){
+gofunction = function(weeks = 3, leagueID = "89417258",year = "2019"){
 library(tidyverse)
 playerperformance = NULL
 
 for (i in 1:weeks) {
   base = "http://fantasy.espn.com/apis/v3/games/ffl/seasons/"
-  year = "2019"
   mid = "/segments/0/leagues/"
-  leagueID = "89417258"
   tail = "?view=mMatchup&view=mMatchupScore&scoringPeriodId="
   url = paste0(base, year, mid, leagueID, tail, i)
   
@@ -37,19 +70,7 @@ for (i in 1:weeks) {
     players %>%
     mutate(observations = observations$n) %>%
     uncount(observations)
-  
-  PositionDF =
-    tibble(
-      PositionId = c(1, 2, 3, 4, 5, 16),
-      Position = c(
-        "Quarterback",
-        "Running Back",
-        "Wide Receiver",
-        "Tight End",
-        "Kicker",
-        "Defense"
-      )
-    )
+
   
   ## projections and results for players withnames
   playerperformanceshort =
@@ -85,9 +106,9 @@ PlayerTeamDF = NULL
 
 for (i in 1:weeks) {
   base = "http://fantasy.espn.com/apis/v3/games/ffl/seasons/"
-  year = "2019"
+  # year = "2019"
   mid = "/segments/0/leagues/"
-  leagueID = "89417258"
+  # leagueID = "89417258"
   tail10 = "?view=mMatchup&view=mMatchupScore&scoringPeriodId="
   tail = "?view=mDraftDetail&view=mLiveScoring&view=mMatchupScore&view=mPendingTransactions&view=mPositionalRatings&view=mSettings&view=mTeam&view=modular&view=mNav&view=mMatchupScore&scoringPeriodId="
   url = paste0(base, year, mid, leagueID, tail, i)
@@ -140,21 +161,6 @@ PlayerPerformance =
   left_join(PlayerTeamDF, by = c("Player", "scoringPeriodId")) %>%
   as_tibble()
 
-PlayerSlotIDs = tibble(
-  playerrosterslot = c(0, 2, 4, 6, 16, 17, 20, 21, 23),
-  SlottedPosition = c(
-    "Quarterback",
-    "Running Back",
-    "Wide Receiver",
-    "Tight End",
-    "Defense",
-    "Kicker",
-    "Bench",
-    "IR",
-    "Flex"
-  )
-)
-
 WeeklyEstimates =
   PlayerPerformance %>% as.data.frame() %>%
   # filter(Team == "'R'm Chair_Quarterback") %>%
@@ -183,26 +189,17 @@ write_csv(WeeklyEstimates, "FantasyFootballData.csv")
 #### Gets standings
 
 base = "http://fantasy.espn.com/apis/v3/games/ffl/seasons/"
-year = "2019"
+# year = "2019"
 mid = "/segments/0/leagues/"
-leagueID = "89417258"
-# tail10 = "?view=mMatchup&view=mMatchupScore&scoringPeriodId="
-# tail = "?view=mDraftDetail&view=mLiveScoring&view=mMatchupScore&view=mPendingTransactions&view=mPositionalRatings&view=mSettings&view=mTeam&view=modular&view=mNav&view=mMatchupScore&scoringPeriodId="
+# leagueID = "89417258"
 tail = "?&view=mMatchupScore&scoringPeriodId="
 url = paste0(base,year,mid,leagueID,tail)
-# url10 = paste0(base,year,mid,leagueID,tail10,i)
 
 ESPNGet <- httr::GET(url = url)
 ESPNGet$status_code
 ESPNRaw <- rawToChar(ESPNGet$content)
 ESPNFromJSON2 <- jsonlite::fromJSON(ESPNRaw)
 # ESPNFromJSON2 %>% listviewer::jsonedit()
-
-teamiddf = tibble(
-  id = c(1:10),
-  team = c("'R'm Chair Quarterback", "Philly Chapmaniacs", "The Plainsmen", "The OBJective Functions", "Analysis Paralysis", 
-           "Team Ward", "Compute This!", "The Chief", "Dallas The boys", "Palindrome Tikkit")
-)
 
 season1 = tibble(
   awayid = ESPNFromJSON2$schedule$away$teamId,
@@ -240,12 +237,10 @@ write_csv("weekbyweekresultssimple.csv")
 gofunction()
 
 ###HTML Documents
-
+WeeklyEstimates = read_csv("FantasyFootballData.csv")
 WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist
 currentweek = 3
-# for (i in 1:length(uiclist)) {
 for (i in 1:10) {
-  # i=1
   rmarkdown::render("Fantasy Football Team Report.Rmd",params=list(team=teamlist[i],week = currentweek))
   file.rename(from="Fantasy-Football-Team-Report.html", to =paste(teamlist[i],"Update.html"))
   file.copy(from=paste0(getwd(),"/",teamlist[i], " Update.html"), to = paste0(getwd(),"/FF Update Reports/",teamlist[i]," Update.html"))
