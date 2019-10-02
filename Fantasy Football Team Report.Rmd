@@ -2,10 +2,11 @@
 title: "Fantasy Football Team Report"
 author: "Dusty Turner"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-output: html_document
-params: 
-  team: "'R'm Chair_Quarterback"
-  week: 2
+output:
+  html_document: default
+params:
+  team: '''R''m Chair_Quarterback'
+  week: 4
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +17,8 @@ library(DT)
 options(DT.options = list(pageLength = 100, language = list(search = 'Filter:')))
 ```
 
-# Fantasy Football Report for `r params$team`: Week `r params$week`
+# Fantasy Football Report for `r params$team`: 
+# Week `r params$week`
 
 ```{r, echo=FALSE}
 ffdata = read_csv("FantasyFootballData.csv")
@@ -28,11 +30,11 @@ WeeklyEstimates =
 
 ```{r}
 ffdata %>%
-    # filter(scoringPeriodId==1) %>%
+    # filter(scoringPeriodId==4) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   select(Actual,Predicted,Player,ActualMinusPredicted) %>%
-  summarise(mean=mean(Actual))  -> weekleaguemean
+  summarise(mean=mean(Actual, na.rm = TRUE))  -> weekleaguemean
 
 ffdata %>%
   # filter(Team=="'R'm Chair_Quarterback") %>%
@@ -40,15 +42,15 @@ ffdata %>%
   filter(Team==params$team) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
-  summarise(sum = sum(Actual)) -> weakteamsum
+  summarise(sum = sum(Actual, na.rm = TRUE)) -> weakteamsum
 
 ffdata %>%
-  # filter(scoringPeriodId==1) %>%
+  # filter(scoringPeriodId==3) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   filter(!is.na(Team)) %>%
   group_by(Team) %>%
-  summarise(score = sum(Actual)) %>%
+  summarise(score = sum(Actual, na.rm = TRUE)) %>%
   filter(score==max(score)|score==min(score)) -> topandbottom
 ```
 
@@ -56,17 +58,17 @@ ffdata %>%
 
 1. This week, your team scored `r weakteamsum$sum`; compared to the league average of `r round(weekleaguemean$mean*9,2)`.
 
-2. The Plunger winner is `r topandbottom$Team[1]`.  `r ifelse(params$team==topandbottom$Team[1], "Congradulations on winning the Plunger","Congradulations on avoiding the Plunger!")
+2. The Mug winner is `r topandbottom$Team[1]`.  `r ifelse(params$team==topandbottom$Team[1], "Congratulations on winning the Mug!","Sorry you didn't win the mug :(.")
 `
 
-3. The Mug winner is `r topandbottom$Team[2]`. `r ifelse(params$team==topandbottom$Team[2], "Congradulations on winning the Mug!","Sorry, you didn't win the mug." )`
+3. The Plunger winner is `r topandbottom$Team[2]`. `r ifelse(params$team==topandbottom$Team[2], "Congradulations on winning the Plunger!","Congradulations on avoiding the Plunger :)." )`
 
-### Did Your Team Measure Up To Expectations
+### Did Your Team Measure Up To Expectations?
 
-```{r, fig.align='center'}
+```{r,fig.align='center'}
 ffdata %>%
   # filter(Team=="'R'm Chair_Quarterback") %>%
-  # filter(scoringPeriodId==1) %>%
+  # filter(scoringPeriodId==3) %>%
   filter(Team==params$team) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
@@ -84,11 +86,13 @@ ffdata %>%
         axis.ticks.y = element_blank())+
         # legend.position = "none")  +
   scale_color_manual(values = c("green","red")) +
-  labs(y="", x = "Points: Predicted (Big Dot) and Actual (Small Dot) Performance", title = "Did Your Team Over or Under Achieve?",
-       caption = "Black line denoting the league average score is included for refrence")
+  labs(y="", x = "Points: Predicted (Big Dot) and Actual (Small Dot) Performance", 
+       # title = "Did Your Team Over or Under Achieve?",
+       caption = "Black line denoting the league average score is included for reference")
 
 ```
 
+### Which Players Measured Up to Expectations?
 
 ```{r}
 ffdata %>%

@@ -1,5 +1,5 @@
 library(tidyverse)
-weeks=3
+weeks=4
 leagueID = "89417258"
 year = "2019"
 
@@ -37,10 +37,9 @@ teamiddf = tibble(
            "Team Ward", "Compute This!", "The Chief", "Dallas The boys", "Palindrome Tikkit")
 )
 
-##### Gets individual player performance
-
+### Function Pulls and Saves All Data
 gofunction = function(weeks = 3, leagueID = "89417258",year = "2019"){
-library(tidyverse)
+
 playerperformance = NULL
 
 for (i in 1:weeks) {
@@ -55,7 +54,7 @@ for (i in 1:weeks) {
   ESPNFromJSON <- jsonlite::fromJSON(ESPNRaw)
   # ESPNFromJSON %>% listviewer::jsonedit()
   
-  ## players on rosters
+  ## gets players on rosters for week n
   players =
     ESPNFromJSON$teams$roster$entries %>% map("playerPoolEntry") %>% map("player") %>%
     map_df(magrittr::extract, c("id", "fullName", "defaultPositionId")) %>%
@@ -234,15 +233,15 @@ write_csv("weekbyweekresultssimple.csv")
 
 }
 
-gofunction()
+gofunction(weeks = 4, leagueID = leagueID, year = year)
 
 ###HTML Documents
 WeeklyEstimates = read_csv("FantasyFootballData.csv")
 WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist
-currentweek = 3
+currentweek = 4
 for (i in 1:10) {
   rmarkdown::render("Fantasy Football Team Report.Rmd",params=list(team=teamlist[i],week = currentweek))
   file.rename(from="Fantasy-Football-Team-Report.html", to =paste(teamlist[i],"Update.html"))
-  file.copy(from=paste0(getwd(),"/",teamlist[i], " Update.html"), to = paste0(getwd(),"/FF Update Reports/",teamlist[i]," Update.html"))
+  file.copy(from=paste0(getwd(),"/",teamlist[i], " Update.html"), to = paste0(getwd(),"/FF Update Reports/",teamlist[i]," Update.html"), overwrite = TRUE)
   file.remove(paste0(getwd(),"/",teamlist[i]," Update.html"))
 }
