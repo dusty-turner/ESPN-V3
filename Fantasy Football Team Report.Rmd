@@ -226,3 +226,38 @@ data %>%
 #        caption = "Low and right means good player selection and high points scored.")
 ```
 
+## How Did Your Performance at each Position Compare To Other Weeks?
+
+```{r}
+library(ggiraphExtra)
+
+radar =
+  ffdata %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(Team)) %>%
+  group_by(Team,scoringPeriodId, Position) %>%
+  summarise(Sum = sum(Actual, na.rm = TRUE)) %>%
+  # filter(Position=="Running Back") %>%
+  group_by(Team, Position) %>%
+  arrange(Team) %>%
+  mutate(rank = rank(Sum)) 
+  
+
+
+radardata =
+radar %>%
+  ungroup() %>%
+  select(-Sum,) %>%
+  filter(Team==params$team) %>%
+  select(-Team) %>%
+  spread(Position,rank) %>%
+  rename(Week = scoringPeriodId)
+  # bind_rows(
+    # tibble(Team = "Baseline")
+  # ) %>%
+# radardata
+
+radardata %>%
+  ggRadar(aes(color=Week), interactive = TRUE, rescale = FALSE, alpha = .1, size = 1, legend.position = "right") 
+```
+

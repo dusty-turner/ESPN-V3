@@ -531,7 +531,42 @@ WeeklyEstimates %>% as_tibble() %>%
        y = "", x = "Actual Points Scored Minus Predicted")
 ```
 
+## Performance By Position Compared To Other Teams
 
+```{r}
+library(ggiraphExtra)
+
+radar =
+  playerdata %>%
+  filter(Starter=="Starter") %>%
+  filter(!is.na(Team)) %>%
+  group_by(Team,Position) %>%
+  summarise(Sum = sum(Actual, na.rm = TRUE)) %>%
+  # filter(Position=="Running Back") %>%
+  group_by(Position) %>%
+  arrange(Position) %>%
+  mutate(rank = rank(Sum)) 
+  
+
+
+radardata =
+radar %>%
+  ungroup() %>%
+  # rename(group = Team) %>%
+  # mutate_at(vars(-group,-Position), funs(scales::rescale)) %>%
+  select(-Sum) %>%
+  spread(Position,rank) %>%
+  # bind_rows(
+    # tibble(Team = "Baseline")
+  # ) %>%
+  replace(is.na(.), 0) %>%
+  # filter(Team==params$team) %>%
+  mutate(Team = str_replace_all(Team,"'",""))
+
+radardata %>%
+  ggRadar(aes(color=Team), interactive = TRUE, rescale = FALSE, alpha = .1, size = 1, legend.position = "right")
+
+```
 
 <!-- ```{r} -->
 
