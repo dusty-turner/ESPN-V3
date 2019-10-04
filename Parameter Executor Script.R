@@ -246,4 +246,3 @@ for (i in 1:10) {
   file.remove(paste0(getwd(),"/",teamlist[i],"_Update_week",currentweek,".html"))
 }
 
-file.rename(from="Fantasy-Football-League-Report.html", to =paste0("Fantasy-Football-League-Report_Week_", currentweek, ".html"))

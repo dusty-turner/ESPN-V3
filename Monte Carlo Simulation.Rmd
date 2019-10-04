@@ -1,0 +1,120 @@
+---
+title: "Monte Carlo League Sim"
+author: "Dusty Turner"
+date: "10/3/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(tidyverse)
+ffdata = read_csv("FantasyFootballData.csv")
+leaguedata = read_csv("weekbyweekresults.csv")
+# leaguedatasimple = read_csv("weekbyweekresultssimple.csv")
+# WeeklyEstimates = 
+  # ffdata %>% filter(!is.na(Team))
+teamiddf = tibble(
+  # id = c(1:10),
+  Winner = c("'R'm Chair Quarterback", "Philly Chapmaniacs", "The Plainsmen", "The OBJective Functions", "Analysis Paralysis", 
+           "Team Ward", "Compute This!", "The Chief", "Dallas The boys", "Palindrome Tikkit")
+)
+
+```
+
+```{r}
+sampleframe = 
+ffdata %>%
+  select(-playerrosterslot,-Actual) %>%
+  filter(complete.cases(.)) %>%
+  filter(Predicted!=0) %>%
+  group_by(SlottedPosition) %>%
+  # ggplot(aes(x=ActualMinusPredicted)) + geom_histogram() + facet_wrap(~Position)
+  select(ActualMinusPredicted)
+
+fulldf = NULL
+
+for (i in 1:100) {
+
+
+pointsscoreddf =
+sampleframe %>% nest() %>%
+  ungroup() %>%
+  mutate(n = c(1,1,6,2,2,1,1,1)) %>%
+  # mutate(n = n())
+  mutate(samp = map2(data,n*10*4,~sample_n(.x,.y, replace = TRUE))) %>%
+  select(-data) %>%
+  unnest() %>% 
+  group_by(SlottedPosition) %>%
+  mutate(teamID = rep(1:10,n()/10)) %>%
+  filter(SlottedPosition!="Bench")
+
+
+joiner = 
+ffdata %>%
+  filter(Starter=="Starter") %>% 
+  filter(!is.na(Team)) %>%
+  # arrange(scoringPeriodId,Team,SlottedPosition) %>%
+  arrange(Team) %>%
+  mutate(teamID = group_indices())
+
+  
+
+
+Simulation =
+joiner %>% arrange(SlottedPosition) %>% 
+  bind_cols(
+    pointsscoreddf %>% arrange(SlottedPosition)
+    ) %>%
+  # select(-playerrosterslot,-Actual,-ActualMinusPredicted,-Starter,-teamID, -teamID1,-n,-SlottedPosition1) %>%
+  rename(SimulatedDiff = ActualMinusPredicted1) %>%
+  mutate(SimPointsScored = Predicted + SimulatedDiff) %>%
+  mutate(SimPointsScored = if_else(SimPointsScored<0,0,SimPointsScored)) %>%
+  rename(weekID = scoringPeriodId) %>%
+  group_by(weekID,Team) %>%
+  summarise(SimPoints = sum(SimPointsScored)) %>%
+  mutate(Team = str_replace_all(Team,"_"," ")) %>%
+  mutate(Team = if_else(Team=="Compute  This!","Compute This!",Team))
+
+Simulation
+
+weeks = max(Simulation$weekID)
+
+appender =
+leaguedata %>% select(weekID,AwayTeam,HomeTeam) %>% distinct() %>%
+  left_join(
+    Simulation %>% 
+      rename(AwayTeam = Team) 
+  ) %>%
+  rename(AwayPoints = SimPoints) %>%
+    left_join(
+    Simulation %>% 
+      rename(HomeTeam = Team) 
+  ) %>%
+  rename(HomePoints = SimPoints) %>%
+  mutate(Winner = if_else(AwayPoints>HomePoints,AwayTeam,HomeTeam)) %>%
+  filter(complete.cases(.)) %>%
+  count(Winner) %>%
+  full_join(teamiddf) %>%
+  mutate(n = replace_na(n,0)) %>%
+  rename(Wins = n) %>%
+  mutate(Losses = weeks-Wins)
+
+fulldf = bind_rows(fulldf,appender)
+}
+
+fulldf %>% 
+  count(Winner,Wins,Losses) %>%
+  arrange(Winner, Wins) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  group_by(Winner,n) %>%
+  mutate(Prob = n/100) %>%
+  ggplot(aes(x=Winner,fill = n)) 
+
+
+```
+
