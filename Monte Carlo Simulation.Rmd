@@ -38,7 +38,7 @@ ffdata %>%
 
 fulldf = NULL
 
-for (i in 1:100) {
+for (i in 1:500) {
 
 
 pointsscoreddf =
@@ -107,14 +107,35 @@ leaguedata %>% select(weekID,AwayTeam,HomeTeam) %>% distinct() %>%
 fulldf = bind_rows(fulldf,appender)
 }
 
+sorter = 
 fulldf %>% 
   count(Winner,Wins,Losses) %>%
   arrange(Winner, Wins) %>%
   mutate(WinPerc = Wins/(Wins+Losses)) %>%
   group_by(Winner,n) %>%
   mutate(Prob = n/100) %>%
-  ggplot(aes(x=Winner,fill = n)) 
+  mutate(Record = paste0(Wins,"-",Losses)) %>%
+  filter(WinPerc==1) %>%
+  ungroup() %>%
+  mutate(sorter = rank(Prob)) %>%
+  select(Winner,sorter)
 
+
+
+fulldf %>% 
+  count(Winner,Wins,Losses) %>%
+  arrange(Winner, Wins) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  group_by(Winner,n) %>%
+  mutate(Prob = n/nrow(.)/10) %>%
+  mutate(Record = paste0(Wins,"-",Losses)) %>%
+  left_join(sorter, by = "Winner") %>%
+  ggplot(aes(x=fct_reorder(Winner,-sorter),y=Prob,fill = fct_reorder(Record,-Wins), label = Record)) +
+    geom_col(color = "black") +
+  scale_fill_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=5))) +
+   scale_x_discrete(labels = function(x) str_wrap(x, width = 5)) +
+  geom_text(size = 3, position = position_stack(vjust = 0.5)) +
+  labs(title = "Simulated Record of Season So Far", fill = "Record", y = "Probabily of Record", x = "Winner")
 
 ```
 

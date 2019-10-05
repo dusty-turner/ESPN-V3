@@ -1,11 +1,11 @@
 ---
-title: "Fantasy Football League Report"
+title: "League Report Dashboard"
 author: "Dusty Turner"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+  flexdashboard::flex_dashboard:
+    theme: spacelab
+    vertical_layout: scroll
 ---
 
 ```{r setup, include=FALSE}
@@ -22,12 +22,14 @@ week = leaguedatasimple %>% select(awaypoints) %>% as.data.frame() %>%
 
 ```
 
-# League Update
+
+Weekly Update
+=====================================  
+    
+### Mug (and Plunger) Standings
 
 Hello all, welcome to OA Division Fantasy Football Week `r week` Update!
-
-## Mug (and Plunger) Standings
-
+    
 ```{r}
 
 teams = 
@@ -95,7 +97,7 @@ Mug: Everyone congratulate `r awardsthisweek$Team[1]` for winning the mug.
 
 Plunger: Hardy cajoling goes out to `r awardsthisweek$Team[2]` for earning the plunger this week.  Hats off for your hard work!
 
-Current Mug tally:
+### Current Mug tally:
 
 ```{r}
 awards %>%
@@ -105,7 +107,7 @@ awards %>%
   kable_styling("hover", full_width = F)
 ```
 
-Current Plunger tally:
+### Current Plunger tally:
 
 ```{r}
 awards %>%
@@ -114,31 +116,31 @@ awards %>%
   kable("html", escape = F) %>%
   kable_styling("hover", full_width = F)
 ```
+ 
 
 
-## Standings
+Standings {data-orientation=columns}
+=====================================     
 
-The standings are current through week `r week`.
 
-Every week wins are how many wins your team would have if you played every team every week.  
-
-Every week losses and every week win percentage are calculated accordingly.  
-
-This is meant to be a measure of how 'lucky' your team is. 
+Column {.tabset}
+-------------------------------------
+   
+### Standings
+    
 
 ```{r}
 standings %>%
   mutate(EveryWeekPerc = round(EveryWeekPerc,2)) %>%
   arrange(desc(WinPerc)) %>%
   mutate(WinPerc = round(WinPerc,2)) %>%
-  DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
+  DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't', list(pageLength = 10))) 
   # kable("html", escape = F) %>%
   # kable_styling("hover", full_width = F) 
 
 ```
 
-
-A graphical view of the above information.  Low and right are lucky. Up and left are unlucky.
+### Graphic
 
 ```{r}
 standings %>% ungroup() %>%
@@ -163,12 +165,45 @@ standings %>% ungroup() %>%
 
 
 
+Column
+-------------------------------------
 
+### Explanation
 
-## Expected Points
+The standings are current through week `r week`.
 
+Every week wins are how many wins your team would have if you played every team every week.  
 
+Every week losses and every week win percentage are calculated accordingly.  
 
+This is meant to be a measure of how 'lucky' your team is. 
+
+A graphical view of the above information.  Low and right are lucky. Up and left are unlucky.
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+.  
+
+Expectations
+=====================================  
+
+Row
+-------------------------------------
+    
 ### What Teams Are Living Up to Expectations This Week?
 
 ```{r}
@@ -214,9 +249,39 @@ WeeklyEstimates %>%
        color = "Actual-Predicted",
        caption = "Green = Lucky \n Red = Unlucky") 
 ```
+ 
+### Whose Team's Starters Are Meeting Expectations?
 
+This table shows the Team's starter's actual points scored minus their projected points scored in week `r week`.
+
+```{r echo=FALSE}
+
+## expectation performance by most recent week
+WeeklyEstimates %>%
+  filter(!is.na(Team)) %>%
+  filter(Starter == "Starter") %>%
+  arrange(-ActualMinusPredicted) %>%
+  group_by(Team, scoringPeriodId) %>%
+  summarise(totalActualMinusPredicted = sum(ActualMinusPredicted, na.rm = TRUE)) %>%
+  arrange(totalActualMinusPredicted) %>%
+  filter(scoringPeriodId==week) %>%
+  select(-scoringPeriodId) %>% 
+  rename(Delta = totalActualMinusPredicted) %>%
+  mutate(
+      Delta = round(Delta,2),
+      Delta = ifelse(Delta > 0,
+                  cell_spec(Delta, "html", color = "green", bold = T),
+                  cell_spec(Delta, "html", color = "red", italic = T))
+    ) %>%
+    DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
+
+```
+
+
+Row
+-------------------------------------
+    
 ### What Teams Are Living Up to Expectations All Weeks?
-
 
 ```{r}
 WeeklyEstimates %>%
@@ -255,34 +320,7 @@ WeeklyEstimates %>%
        caption = "Green = Lucky \n Red = Unlucky")  
 ```
 
-
-
-### Whose Team's Starters Are Meeting Expectations?
-
-This table shows the Team's starter's actual points scored minus their projected points scored in week `r week`.
-
-```{r echo=FALSE}
-
-## expectation performance by most recent week
-WeeklyEstimates %>%
-  filter(!is.na(Team)) %>%
-  filter(Starter == "Starter") %>%
-  arrange(-ActualMinusPredicted) %>%
-  group_by(Team, scoringPeriodId) %>%
-  summarise(totalActualMinusPredicted = sum(ActualMinusPredicted, na.rm = TRUE)) %>%
-  arrange(totalActualMinusPredicted) %>%
-  filter(scoringPeriodId==week) %>%
-  select(-scoringPeriodId) %>% 
-  rename(Delta = totalActualMinusPredicted) %>%
-  mutate(
-      Delta = round(Delta,2),
-      Delta = ifelse(Delta > 0,
-                  cell_spec(Delta, "html", color = "green", bold = T),
-                  cell_spec(Delta, "html", color = "red", italic = T))
-    ) %>%
-    DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
-
-```
+### Chart 4
 
 This table show's how each team's starters have actually performed vs their projection (on average) all season.
 
@@ -305,11 +343,21 @@ WeeklyEstimates %>%
     DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
 ```
 
-## Optimal Lineup
+Optimal Lineup
+=====================================  
+    
+Column {.tabset}
+-------------------------------------
 
-Who is the best coach?  How much have you missed your optimal line up this week?  
+### Optimal Lineup This Week
 
-The plot below reflects how many points you scored vs your best line up.
+Who is the best coach?  
+
+How much have you missed your optimal line up this week?  
+
+The plot below reflects how many 
+
+points you scored vs your best line up.
 
 ```{r include=FALSE}
 ranked = 
@@ -374,6 +422,42 @@ bind_rows(rankedqbs,rankedrbs,rankedwrs,rankedtes,rankedfl,rankeddef,rankedk) %>
 ```
 
 
+
+```{r}
+helper =
+  leaguedatasimple %>%
+  mutate(AwayTeam= str_replace(AwayTeam,"_"," ")) %>%
+  mutate(HomeTeam= str_replace(HomeTeam,"_"," ")) %>%
+  mutate(scoringPeriodId = weekID) %>%
+       left_join(
+
+optimallineup %>% 
+  ungroup(Team) %>%
+  mutate(Lineup="Best") %>%
+  mutate(Team= str_replace(Team,"_"," ")) %>%
+  mutate(Team = if_else(Team=="Compute  This!", "Compute This!", Team)) %>%
+  group_by(Team, scoringPeriodId) %>%
+  summarise(Points = sum(Actual)) %>%
+  group_by(scoringPeriodId) %>%
+  mutate(Rank = rank(-Points)) , by = c("AwayTeam"="Team", "scoringPeriodId" = "scoringPeriodId")) 
+
+BestPointsDataFrame =
+helper %>%  
+  left_join(
+  
+  optimallineup %>% 
+  ungroup(Team) %>%
+  mutate(Lineup="Best") %>%
+  mutate(Team= str_replace(Team,"_"," ")) %>%
+  mutate(Team = if_else(Team=="Compute  This!", "Compute This!", Team)) %>%
+  group_by(Team, scoringPeriodId) %>%
+  summarise(Points = sum(Actual)) %>%
+  group_by(scoringPeriodId) %>%
+  mutate(Rank2 = rank(-Points)) , by = c("HomeTeam"="Team", "scoringPeriodId" = "scoringPeriodId"), suffix = c(".Away",".Home"))
+
+```
+
+
 ```{r}
 optimallineup %>% 
   mutate(Lineup="Best") %>%
@@ -408,6 +492,9 @@ data %>%
        subtitle = "Closer to the x axis means better coach",
        caption = "Low and right means good player selection and high points scored.")
 ```
+
+
+### Optimial Line Up in Week `r week`
 
 How good of a coach were you in week `r week`?
 
@@ -450,43 +537,11 @@ data %>%
 
 ```
 
+
 ### What if you played your best roster each week?
 
 The following table shows how well your team could be doing if you played your best roster every week.
 
-```{r}
-helper =
-  leaguedatasimple %>%
-  mutate(AwayTeam= str_replace(AwayTeam,"_"," ")) %>%
-  mutate(HomeTeam= str_replace(HomeTeam,"_"," ")) %>%
-  mutate(scoringPeriodId = weekID) %>%
-       left_join(
-
-optimallineup %>% 
-  ungroup(Team) %>%
-  mutate(Lineup="Best") %>%
-  mutate(Team= str_replace(Team,"_"," ")) %>%
-  mutate(Team = if_else(Team=="Compute  This!", "Compute This!", Team)) %>%
-  group_by(Team, scoringPeriodId) %>%
-  summarise(Points = sum(Actual)) %>%
-  group_by(scoringPeriodId) %>%
-  mutate(Rank = rank(-Points)) , by = c("AwayTeam"="Team", "scoringPeriodId" = "scoringPeriodId")) 
-
-BestPointsDataFrame =
-helper %>%  
-  left_join(
-  
-  optimallineup %>% 
-  ungroup(Team) %>%
-  mutate(Lineup="Best") %>%
-  mutate(Team= str_replace(Team,"_"," ")) %>%
-  mutate(Team = if_else(Team=="Compute  This!", "Compute This!", Team)) %>%
-  group_by(Team, scoringPeriodId) %>%
-  summarise(Points = sum(Actual)) %>%
-  group_by(scoringPeriodId) %>%
-  mutate(Rank2 = rank(-Points)) , by = c("HomeTeam"="Team", "scoringPeriodId" = "scoringPeriodId"), suffix = c(".Away",".Home"))
-
-```
 
 ```{r}
 BestPointsDataFrame %>%
@@ -504,13 +559,14 @@ BestPointsDataFrame %>%
   mutate(WinPerc =Wins/(Wins+Losses)) %>%
   arrange(-WinPerc) %>%
   DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
-  # kable("html", escape = F) %>%
-  # kable_styling("hover", full_width = F)
+
 ```
 
-
-
-## A Look Across the League: 
+Misc Comparisons
+=====================================  
+    
+Column {.tabset}
+-------------------------------------
 
 ### What Positions Are Predicted Most Accurately
 
@@ -533,7 +589,7 @@ WeeklyEstimates %>% as_tibble() %>%
        y = "", x = "Actual Points Scored Minus Predicted")
 ```
 
-## Performance By Position Compared To Other Teams
+### Performance By Position Compared To Other Teams
 
 ```{r}
 library(ggiraphExtra)
@@ -570,32 +626,4 @@ radardata %>%
 
 ```
 
-<!-- ```{r} -->
 
-<!-- WeeklyEstimates %>% -->
-<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
-<!--   group_by(Team, scoringPeriodId, Starter)  -->
-
-
-<!-- WeeklyEstimates %>% as_tibble() %>%  -->
-<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
-<!--   ggplot(aes(x=ActualMinusPredicted)) + -->
-<!--   geom_histogram() -->
-
-<!-- WeeklyEstimates %>% as_tibble() %>%  -->
-<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
-<!--   ggplot(aes(x=Predicted,y=Actual)) + -->
-<!--   geom_point() + -->
-<!--   geom_smooth(method = "lm") -->
-
-
-<!-- WeeklyEstimates %>% as_tibble() %>%  -->
-<!--   filter(!is.na(ActualMinusPredicted)) %>% -->
-<!--   ggplot(aes(x=Predicted,y=Actual, color = Team)) + -->
-<!--   geom_point() + -->
-<!--   # facet_grid(Starter~Team) + -->
-<!--   # facet_wrap(~Team, ncol = 2) + -->
-<!--   geom_abline(aes(slope =1, intercept = 0),color = "red") -->
-<!--   # theme(legend.position = "none") -->
-
-<!-- ``` -->
