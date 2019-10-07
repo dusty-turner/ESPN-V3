@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 output: 
   flexdashboard::flex_dashboard:
     theme: spacelab
-    vertical_layout: scroll
+    vertical_layout: fill
 ---
 
 ```{r setup, include=FALSE}
@@ -561,6 +561,346 @@ BestPointsDataFrame %>%
   DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
 
 ```
+
+Season Sims {data-orientation=columns}
+=====================================  
+    
+Column
+-------------------------------------
+
+### Season Simulation Through This Week
+
+Sim providing distribution of possible records.
+
+```{r}
+library(tidyverse)
+ffdata = read_csv("FantasyFootballData.csv")
+leaguedata = read_csv("weekbyweekresults.csv")
+leaguedatasimple = read_csv("weekbyweekresultssimple.csv")
+# WeeklyEstimates = 
+  # ffdata %>% filter(!is.na(Team))
+
+week = leaguedatasimple %>% select(awaypoints) %>% as.data.frame() %>%
+  filter(awaypoints!=0) %>% nrow()/5
+
+teams = 
+leaguedatasimple %>%
+  select(AwayTeam,HomeTeam)%>%
+  gather(direction, Team) %>%
+  select(Team) %>%
+  distinct()
+
+currentstandings = 
+leaguedatasimple %>%
+  filter(homepoints!=0) %>%
+  group_by(winner) %>%
+  mutate(Wins = n()) %>%
+  select(winner, Wins) %>%
+  distinct() %>%
+  rename(Team = winner) %>%
+  right_join(teams) %>%
+  mutate(Wins = replace_na(Wins, 0)) %>%
+  mutate(Losses = week - Wins) %>%
+  mutate(WinPerc =Wins/(Wins+Losses)) %>%
+  mutate(ActualRecord = paste0(Wins,"-",Losses)) %>%
+  rename(Winner = Team)
+
+teamiddf = tibble(
+  # id = c(1:10),
+  Winner = c("'R'm Chair Quarterback", "Philly Chapmaniacs", "The Plainsmen", "The OBJective Functions", "Analysis Paralysis", 
+           "Team Ward", "Compute This!", "The Chief", "Dallas The boys", "Palindrome Tikkit")
+) 
+
+
+```
+
+```{r}
+sampleframe = 
+ffdata %>%
+  select(-playerrosterslot,-Actual) %>%
+  filter(complete.cases(.)) %>%
+  filter(Predicted!=0) %>%
+  group_by(SlottedPosition) %>%
+  # ggplot(aes(x=ActualMinusPredicted)) + geom_histogram() + facet_wrap(~Position)
+  select(ActualMinusPredicted)
+
+fulldf = NULL
+
+for (i in 1:100) {
+
+
+pointsscoreddf =
+sampleframe %>% nest() %>%
+  ungroup() %>%
+  mutate(n = c(1,1,6,2,2,1,1,1)) %>%
+  # mutate(n = n())
+  mutate(samp = map2(data,n*10*4,~sample_n(.x,.y, replace = TRUE))) %>%
+  select(-data) %>%
+  unnest() %>% 
+  group_by(SlottedPosition) %>%
+  mutate(teamID = rep(1:10,n()/10)) %>%
+  filter(SlottedPosition!="Bench")
+
+
+joiner = 
+ffdata %>%
+  filter(Starter=="Starter") %>% 
+  filter(!is.na(Team)) %>%
+  # arrange(scoringPeriodId,Team,SlottedPosition) %>%
+  arrange(Team) %>%
+  mutate(teamID = group_indices())
+
+  
+
+
+Simulation =
+joiner %>% arrange(SlottedPosition) %>% 
+  bind_cols(
+    pointsscoreddf %>% arrange(SlottedPosition)
+    ) %>%
+  # select(-playerrosterslot,-Actual,-ActualMinusPredicted,-Starter,-teamID, -teamID1,-n,-SlottedPosition1) %>%
+  rename(SimulatedDiff = ActualMinusPredicted1) %>%
+  mutate(SimPointsScored = Predicted + SimulatedDiff) %>%
+  mutate(SimPointsScored = if_else(SimPointsScored<0,0,SimPointsScored)) %>%
+  rename(weekID = scoringPeriodId) %>%
+  group_by(weekID,Team) %>%
+  summarise(SimPoints = sum(SimPointsScored)) %>%
+  mutate(Team = str_replace_all(Team,"_"," ")) %>%
+  mutate(Team = if_else(Team=="Compute  This!","Compute This!",Team))
+
+Simulation
+
+weeks = max(Simulation$weekID)
+
+appender =
+leaguedata %>% select(weekID,AwayTeam,HomeTeam) %>% distinct() %>%
+  left_join(
+    Simulation %>% 
+      rename(AwayTeam = Team) 
+  ) %>%
+  rename(AwayPoints = SimPoints) %>%
+    left_join(
+    Simulation %>% 
+      rename(HomeTeam = Team) 
+  ) %>%
+  rename(HomePoints = SimPoints) %>%
+  mutate(Winner = if_else(AwayPoints>HomePoints,AwayTeam,HomeTeam)) %>%
+  filter(complete.cases(.)) %>%
+  count(Winner) %>%
+  full_join(teamiddf) %>%
+  mutate(n = replace_na(n,0)) %>%
+  rename(Wins = n) %>%
+  mutate(Losses = weeks-Wins)
+
+fulldf = bind_rows(fulldf,appender)
+}
+
+sorter = 
+fulldf %>% 
+  count(Winner,Wins,Losses) %>%
+  arrange(Winner, Wins) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  group_by(Winner,n) %>%
+  mutate(Prob = n/100) %>%
+  mutate(Record = paste0(Wins,"-",Losses)) %>%
+  filter(WinPerc==1) %>%
+  ungroup() %>%
+  mutate(sorter = rank(Prob)) %>%
+  select(Winner,sorter) %>%
+  left_join(currentstandings) %>%
+  select(Winner,sorter,ActualRecord)
+
+
+
+fulldf %>% 
+  count(Winner,Wins,Losses) %>%
+  arrange(Winner, Wins) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  group_by(Winner,n) %>%
+  mutate(Prob = n/nrow(.)/2) %>%
+  mutate(Record = paste0(Wins,"-",Losses)) %>%
+  left_join(sorter, by = "Winner") %>%
+  mutate(label = if_else(Record==ActualRecord,paste0(Record,"*"),Record)) %>%
+  ggplot(aes(x=fct_reorder(Winner,-sorter),
+             y=Prob,
+             fill = fct_reorder(Record,-Wins),
+             label = label,
+             ),color = "black"
+         ) +
+    geom_col(color = "black") +
+  # scale_color_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=5))) +
+  scale_fill_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=5))) +
+   scale_x_discrete(labels = function(x) str_wrap(x, width = 7)) +
+  geom_text(size = 3, position = position_stack(vjust = 0.5), color = "black") +
+  labs(title = "Simulated Record of Season So Far", 
+       fill = "Record", 
+       y = "Probabily of Record", 
+       x = "Winner",
+       caption = "* Team's Actual Record") +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+
+Column
+-------------------------------------
+
+### Simulation from current week through rest of season
+
+```{r}
+## gets standings
+teams = 
+leaguedatasimple %>%
+  select(AwayTeam,HomeTeam)%>%
+  gather(direction, Team) %>%
+  select(Team) %>%
+  distinct()
+
+currentstandings = 
+leaguedatasimple %>%
+  filter(homepoints!=0) %>%
+  group_by(winner) %>%
+  mutate(Wins = n()) %>%
+  select(winner, Wins) %>%
+  distinct() %>%
+  rename(Team = winner) %>%
+  right_join(teams) %>%
+  mutate(Wins = replace_na(Wins, 0)) %>%
+  mutate(Losses = week - Wins) %>%
+  mutate(WinPerc =Wins/(Wins+Losses))
+
+```
+
+
+```{r}
+sampleframe = 
+ffdata %>%
+  select(-playerrosterslot,-Actual) %>%
+  filter(complete.cases(.)) %>%
+  filter(Predicted!=0) %>%
+  group_by(SlottedPosition) %>%
+  # ggplot(aes(x=ActualMinusPredicted)) + geom_histogram() + facet_wrap(~Position)
+  select(ActualMinusPredicted)
+
+fulldf = NULL
+
+for (i in 1:100) {
+
+
+pointsscoreddf =
+sampleframe %>% nest() %>%
+  ungroup() %>%
+  mutate(n = c(1,1,6,2,2,1,1,1)) %>%
+  # mutate(n = n())
+  mutate(samp = map2(data,n*10*9,~sample_n(.x,.y, replace = TRUE))) %>%
+  select(-data) %>%
+  unnest() %>% 
+  group_by(SlottedPosition) %>%
+  mutate(teamID = rep(1:10,n()/10)) %>%
+  filter(SlottedPosition!="Bench")
+
+
+joiner =
+ffdata %>%
+  filter(Starter=="Starter") %>% 
+  filter(!is.na(Team)) %>%
+  # arrange(scoringPeriodId,Team,SlottedPosition) %>%
+  arrange(Team) %>%
+  mutate(teamID = group_indices()) %>%
+  ungroup() %>%
+  filter(scoringPeriodId==max(scoringPeriodId))
+
+joiner = map_dfr(seq_len(9), ~joiner) %>%
+  mutate(scoringPeriodId = rep(5:13, each = 90))
+
+
+Simulation =
+joiner %>% arrange(SlottedPosition) %>% 
+  bind_cols(
+    pointsscoreddf %>% arrange(SlottedPosition)
+    ) %>%
+  # select(-playerrosterslot,-Actual,-ActualMinusPredicted,-Starter,-teamID, -teamID1,-n,-SlottedPosition1) %>%
+  rename(SimulatedDiff = ActualMinusPredicted1) %>%
+  mutate(SimPointsScored = Predicted + SimulatedDiff) %>%
+  mutate(SimPointsScored = if_else(SimPointsScored<0,0,SimPointsScored)) %>%
+  rename(weekID = scoringPeriodId) %>%
+  group_by(weekID,Team) %>%
+  summarise(SimPoints = sum(SimPointsScored)) %>%
+  mutate(Team = str_replace_all(Team,"_"," ")) %>%
+  mutate(Team = if_else(Team=="Compute  This!","Compute This!",Team))
+
+Simulation
+simstandings = 
+leaguedata %>%
+  filter(weekID>=5) %>%
+  distinct(weekID,AwayTeam,HomeTeam) %>%
+  left_join(Simulation %>% rename(AwayTeam=Team)) %>%
+  rename(AwayPoints = SimPoints) %>%
+  left_join(Simulation %>% rename(HomeTeam=Team)) %>%
+  rename(HomePoints = SimPoints) %>%
+  mutate(Winner = if_else(AwayPoints>HomePoints,AwayTeam,HomeTeam)) %>%
+  count(Winner) %>%
+  mutate(Losses = 9-n) %>%
+  rename(Wins = n) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  rename(Team = Winner)
+
+appender =   
+simstandings %>% 
+  bind_rows(standings %>% select(Team,Wins,Losses,WinPerc)) %>%
+  group_by(Team) %>%
+  summarise(Wins = sum(Wins),Losses = sum(Losses)) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  arrange(-WinPerc)
+
+fulldf = bind_rows(fulldf,appender)
+}
+
+sorter =
+fulldf %>% 
+  count(Team,Wins,Losses) %>%
+  arrange(Team, Wins) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  group_by(Team,n) %>%
+  mutate(Prob = n/100) %>%
+  mutate(Record = paste0(Wins,"-",Losses)) %>%
+  group_by(Team) %>%
+  filter(WinPerc==max(WinPerc)) %>%
+  arrange(-WinPerc) %>%
+  ungroup() %>%
+  mutate(sorter = rank(WinPerc)) %>%
+  select(Team,sorter) 
+
+fulldf %>% 
+  count(Team,Wins,Losses) %>%
+  arrange(Team, Wins) %>%
+  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  group_by(Team,n) %>%
+  mutate(Prob = n/100) %>%
+  mutate(Record = paste0(Wins,"-",Losses)) %>%
+  left_join(sorter, by = "Team") %>%
+  # mutate(label = if_else(Record==ActualRecord,paste0(Record,"*"),Record)) %>%
+  ggplot(aes(x=fct_reorder(Team,-sorter),
+             y=Prob,
+             fill = fct_reorder(Record,-Wins),
+             label = Record,
+             ),color = "black"
+         ) +
+    geom_col(color = "black") +
+  # scale_color_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=5))) +
+  scale_fill_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=14))) +
+   scale_x_discrete(labels = function(x) str_wrap(x, width = 5)) +
+  geom_text(size = 3, position = position_stack(vjust = 0.5), color = "black") +
+  labs(title = "Simulated Record of The Rest of the Season", 
+       fill = "Record", 
+       y = "Probabily of Record", 
+       x = "Winner") +
+     theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
 
 Misc Comparisons
 =====================================  

@@ -241,8 +241,8 @@ WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist
 currentweek = 4
 for (i in 1:10) {
   rmarkdown::render("Fantasy Football Team Report.Rmd",params=list(team=teamlist[i],week = currentweek))
-  file.rename(from="Fantasy-Football-Team-Report.html", to =paste0(teamlist[i],"_Update_week", currentweek, ".html"))
-  file.copy(from=paste0(getwd(),"/",teamlist[i], "_Update_week",currentweek,".html"), to = paste0(getwd(),"/FF Update Reports/",teamlist[i]," Update_week", currentweek, ".html"), overwrite = TRUE)
-  file.remove(paste0(getwd(),"/",teamlist[i],"_Update_week",currentweek,".html"))
+  file.rename(from="Fantasy-Football-Team-Report.html", to =paste0(teamlist[i],"_Update.html"))
+  file.copy(from=paste0(getwd(),"/",teamlist[i],"_Update.html"), to = paste0(getwd(),"/FF Update Reports/",teamlist[i],"_Update.html"), overwrite = TRUE)
+  file.remove(paste0(getwd(),"/",teamlist[i],"_Update.html"))
 }
 
