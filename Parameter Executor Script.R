@@ -1,5 +1,5 @@
 library(tidyverse)
-weeks=4
+weeks=5
 leagueID = "89417258"
 year = "2019"
 
@@ -233,12 +233,12 @@ write_csv("weekbyweekresultssimple.csv")
 
 }
 
-gofunction(weeks = 4, leagueID = leagueID, year = year)
+gofunction(weeks = weeks, leagueID = leagueID, year = year)
 
 ###HTML Documents
 WeeklyEstimates = read_csv("FantasyFootballData.csv")
 WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist
-currentweek = 4
+currentweek = 5
 for (i in 1:10) {
   rmarkdown::render("Fantasy Football Team Report.Rmd",params=list(team=teamlist[i],week = currentweek))
   file.rename(from="Fantasy-Football-Team-Report.html", to =paste0(teamlist[i],"_Update.html"))

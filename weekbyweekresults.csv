@@ -39,16 +39,16 @@ Compute This!,4,'R'm Chair Quarterback,Compute This!,homepoints,123.8,3,2,7
 Palindrome Tikkit,4,Palindrome Tikkit,The OBJective Functions,homepoints,110.24,6,5,4
 The Plainsmen,4,The Plainsmen,Dallas The boys,homepoints,102.98,9,8,1
 Team Ward,4,Team Ward,Philly Chapmaniacs,homepoints,90.1,10,9,0
-Compute This!,5,The OBJective Functions,Compute This!,awaypoints,0,5.5,4.5,4.5
-Analysis Paralysis,5,Dallas The boys,Analysis Paralysis,awaypoints,0,5.5,4.5,4.5
-The Chief,5,Philly Chapmaniacs,The Chief,awaypoints,0,5.5,4.5,4.5
-'R'm Chair Quarterback,5,The Plainsmen,'R'm Chair Quarterback,awaypoints,0,5.5,4.5,4.5
-Palindrome Tikkit,5,Team Ward,Palindrome Tikkit,awaypoints,0,5.5,4.5,4.5
-Compute This!,5,The OBJective Functions,Compute This!,homepoints,0,5.5,4.5,4.5
-Analysis Paralysis,5,Dallas The boys,Analysis Paralysis,homepoints,0,5.5,4.5,4.5
-The Chief,5,Philly Chapmaniacs,The Chief,homepoints,0,5.5,4.5,4.5
-'R'm Chair Quarterback,5,The Plainsmen,'R'm Chair Quarterback,homepoints,0,5.5,4.5,4.5
-Palindrome Tikkit,5,Team Ward,Palindrome Tikkit,homepoints,0,5.5,4.5,4.5
+Compute This!,5,The OBJective Functions,Compute This!,awaypoints,130.04,6,5,4
+Dallas The boys,5,Dallas The boys,Analysis Paralysis,awaypoints,100.22,8,7,2
+Philly Chapmaniacs,5,Philly Chapmaniacs,The Chief,awaypoints,172.24,2,1,8
+The Plainsmen,5,The Plainsmen,'R'm Chair Quarterback,awaypoints,118.04,7,6,3
+Palindrome Tikkit,5,Team Ward,Palindrome Tikkit,awaypoints,145.72,4,3,6
+Compute This!,5,The OBJective Functions,Compute This!,homepoints,130.66,5,4,5
+Dallas The boys,5,Dallas The boys,Analysis Paralysis,homepoints,81.1,9,8,1
+Philly Chapmaniacs,5,Philly Chapmaniacs,The Chief,homepoints,155.02,3,2,7
+The Plainsmen,5,The Plainsmen,'R'm Chair Quarterback,homepoints,73.66,10,9,0
+Palindrome Tikkit,5,Team Ward,Palindrome Tikkit,homepoints,197.7,1,0,9
 Philly Chapmaniacs,6,The Plainsmen,Philly Chapmaniacs,awaypoints,0,5.5,4.5,4.5
 Team Ward,6,'R'm Chair Quarterback,Team Ward,awaypoints,0,5.5,4.5,4.5
 Palindrome Tikkit,6,Analysis Paralysis,Palindrome Tikkit,awaypoints,0,5.5,4.5,4.5
