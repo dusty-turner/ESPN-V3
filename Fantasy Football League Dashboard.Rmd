@@ -29,7 +29,13 @@ Weekly Update
 ### Mug (and Plunger) Standings
 
 Hello all, welcome to OA Division Fantasy Football Week `r week` Update!
-    
+
+This page is an ongoing work in progress.  Please send me an email at <a href = "mailto: dusty.s.turner@gmail.com">dusty.s.turner@gmail.com</a> if you have any feedback.
+
+All code is available on [github](www.github.com/dusty-turner).
+
+<hr>
+
 ```{r}
 
 teams = 
@@ -93,9 +99,9 @@ leaguedatasimple %>%
 
 ```
 
-Mug: Everyone congratulate `r awardsthisweek$Team[1]` for winning the mug.
+Mug: Everyone congratulate `r awardsthisweek$Team[1]` for winning the mug by scoring the most points this week.
 
-Plunger: Hardy cajoling goes out to `r awardsthisweek$Team[2]` for earning the plunger this week.  Hats off for your hard work!
+Plunger: Hardy cajoling goes out to `r awardsthisweek$Team[2]` for earning the plunger by scoring the lest points this week.  Hats off for your hard work!
 
 ### Current Mug tally:
 
@@ -494,7 +500,7 @@ data %>%
 ```
 
 
-### Optimial Line Up in Week `r week`
+### Optimal Line Up in Week `r week`
 
 How good of a coach were you in week `r week`?
 
