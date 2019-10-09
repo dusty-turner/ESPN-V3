@@ -696,7 +696,7 @@ leaguedata %>% select(weekID,AwayTeam,HomeTeam) %>% distinct() %>%
 fulldf = bind_rows(fulldf,appender)
 }
 
-sorter = 
+sorter =
 fulldf %>% 
   count(Winner,Wins,Losses) %>%
   arrange(Winner, Wins) %>%
@@ -704,24 +704,32 @@ fulldf %>%
   group_by(Winner,n) %>%
   mutate(Prob = n/100) %>%
   mutate(Record = paste0(Wins,"-",Losses)) %>%
-  filter(WinPerc==1) %>%
+  # filter(WinPerc==1) %>% 
   ungroup() %>%
+  group_by(Winner) %>%
+  filter(WinPerc==max(WinPerc)) %>% 
+  ungroup() %>%
+  mutate(Prob=if_else(WinPerc!=1,0,Prob)) %>%
   mutate(sorter = rank(Prob)) %>%
   select(Winner,sorter) %>%
   left_join(currentstandings) %>%
-  select(Winner,sorter,ActualRecord)
+  select(Winner,sorter,ActualRecord) %>%
+  arrange(sorter)
 
-
+sorter
 
 fulldf %>% 
   count(Winner,Wins,Losses) %>%
-  arrange(Winner, Wins) %>%
-  mutate(WinPerc = Wins/(Wins+Losses)) %>%
+  arrange(Winner, Wins) %>% 
+  mutate(WinPerc = Wins/(Wins+Losses)) %>% 
+  # filter(Winner=="Philly Chapmaniacs") %>%
   group_by(Winner,n) %>%
   mutate(Prob = n/nrow(.)/2) %>%
   mutate(Record = paste0(Wins,"-",Losses)) %>%
   left_join(sorter, by = "Winner") %>%
-  mutate(label = if_else(Record==ActualRecord,paste0(Record,"*"),Record)) %>%
+  mutate(label = if_else(Record==ActualRecord,paste0(Record,"*"),Record)) %>% 
+  # filter(Winner=="Philly Chapmaniacs")
+  # ungroup() %>% count(Winner)
   ggplot(aes(x=fct_reorder(Winner,-sorter),
              y=Prob,
              fill = fct_reorder(Record,-Wins),
