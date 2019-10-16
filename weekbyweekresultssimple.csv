@@ -24,11 +24,11 @@ awayid,awaypoints,homeid,homepoints,winner,weekID,AwayTeam,HomeTeam
 2,172.24,8,155.02,Philly Chapmaniacs,5,Philly Chapmaniacs,The Chief
 3,118.04,1,73.66,The Plainsmen,5,The Plainsmen,'R'm Chair Quarterback
 6,145.72,10,197.7,Palindrome Tikkit,5,Team Ward,Palindrome Tikkit
-3,0,2,0,Philly Chapmaniacs,6,The Plainsmen,Philly Chapmaniacs
-1,0,6,0,Team Ward,6,'R'm Chair Quarterback,Team Ward
-5,0,10,0,Palindrome Tikkit,6,Analysis Paralysis,Palindrome Tikkit
-7,0,8,0,The Chief,6,Compute This!,The Chief
-9,0,4,0,The OBJective Functions,6,Dallas The boys,The OBJective Functions
+3,96.42,2,114.6,Philly Chapmaniacs,6,The Plainsmen,Philly Chapmaniacs
+1,132.74,6,122.6,'R'm Chair Quarterback,6,'R'm Chair Quarterback,Team Ward
+5,66.6,10,138.14,Palindrome Tikkit,6,Analysis Paralysis,Palindrome Tikkit
+7,124.14,8,103.76,Compute This!,6,Compute This!,The Chief
+9,116.12,4,134.22,The OBJective Functions,6,Dallas The boys,The OBJective Functions
 2,0,1,0,'R'm Chair Quarterback,7,Philly Chapmaniacs,'R'm Chair Quarterback
 6,0,5,0,Analysis Paralysis,7,Team Ward,Analysis Paralysis
 10,0,7,0,Compute This!,7,Palindrome Tikkit,Compute This!

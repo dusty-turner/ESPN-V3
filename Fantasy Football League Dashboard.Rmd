@@ -355,7 +355,7 @@ Optimal Lineup
 Column {.tabset}
 -------------------------------------
 
-### Optimal Lineup This Week
+### Optimal Lineup All Weeks
 
 Who is the best coach?  
 
@@ -564,6 +564,7 @@ BestPointsDataFrame %>%
   mutate(Losses = week - Wins) %>%
   mutate(WinPerc =Wins/(Wins+Losses)) %>%
   arrange(-WinPerc) %>%
+  mutate(WinPerc = round(WinPerc,2)) %>%
   DT::datatable(escape = FALSE,options = list(lengthChange = FALSE, dom = 't')) 
 
 ```
@@ -641,7 +642,7 @@ sampleframe %>% nest() %>%
   filter(SlottedPosition!="IR") %>%
   mutate(n = c(1,1,1,6,2,2,1,1)) %>%
   # mutate(n = n())
-  mutate(samp = map2(data,n*10*5,~sample_n(.x,.y, replace = TRUE))) %>%
+  mutate(samp = map2(data,n*10*week,~sample_n(.x,.y, replace = TRUE))) %>%
   select(-data) %>%
   unnest() %>% 
   group_by(SlottedPosition) %>%
@@ -657,11 +658,19 @@ ffdata %>%
   arrange(Team) %>%
   mutate(teamID = group_indices())
 
-  
+joinhelp = ## had to do this because analysis paralysis didn't play a defesne in week 6
+joiner %>% filter(scoringPeriodId==5)%>%
+filter(Team=="Analysis_Paralysis") %>%
+  filter(SlottedPosition=="Defense") %>%
+  mutate(scoringPeriodId=6) 
+
+joiner = joinhelp %>%
+  bind_rows(joiner)
+
 
 
 Simulation =
-joiner %>% arrange(SlottedPosition) %>% 
+joiner %>% arrange(SlottedPosition) %>%
   bind_cols(
     pointsscoreddf %>% arrange(SlottedPosition)
     ) %>%
@@ -826,6 +835,10 @@ ffdata %>%
   mutate(teamID = group_indices()) %>%
   ungroup() %>%
   filter(scoringPeriodId==max(scoringPeriodId))
+
+joiner = ## had to do this because analysis paralysis didn't play a defesne in week 6
+ joinhelp %>%
+  bind_rows(joiner)
 
 joiner = map_dfr(seq_len(9), ~joiner) %>%
   mutate(scoringPeriodId = rep(5:13, each = 90))

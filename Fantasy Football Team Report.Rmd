@@ -6,7 +6,7 @@ output:
   html_document: default
 params:
   team: '''R''m Chair_Quarterback'
-  week: 4
+  week: 5
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +30,7 @@ WeeklyEstimates =
 
 ```{r}
 ffdata %>%
-    # filter(scoringPeriodId==4) %>%
+    # filter(scoringPeriodId==5) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   select(Actual,Predicted,Player,ActualMinusPredicted) %>%
@@ -38,20 +38,23 @@ ffdata %>%
 
 ffdata %>%
   # filter(Team=="'R'm Chair_Quarterback") %>%
-  # filter(scoringPeriodId==1) %>%
+  # filter(scoringPeriodId==5) %>%
   filter(Team==params$team) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   summarise(sum = sum(Actual, na.rm = TRUE)) -> weakteamsum
 
 ffdata %>%
-  # filter(scoringPeriodId==3) %>%
+  # filter(scoringPeriodId==5) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   filter(!is.na(Team)) %>%
   group_by(Team) %>%
   summarise(score = sum(Actual, na.rm = TRUE)) %>%
-  filter(score==max(score)|score==min(score)) -> topandbottom
+  filter(score==max(score)|score==min(score)) %>%
+  arrange(-score)-> topandbottom
+
+
 ```
 
 ### Week Summary
@@ -66,9 +69,9 @@ ffdata %>%
 ### Did Your Team Measure Up To Expectations?
 
 ```{r,fig.align='center'}
-ffdata %>%
+ffdata %>% 
   # filter(Team=="'R'm Chair_Quarterback") %>%
-  # filter(scoringPeriodId==3) %>%
+  # filter(scoringPeriodId==5) %>%
   filter(Team==params$team) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
