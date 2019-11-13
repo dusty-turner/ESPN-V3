@@ -5,8 +5,9 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   html_document: default
 params:
-  team: '''R''m Chair_Quarterback'
-  week: 5
+  team: 'Analysis_Paralysis'
+  # team: '''R''m Chair_Quarterback'
+  week: 9
 ---
 
 ```{r setup, include=FALSE}
@@ -30,22 +31,27 @@ WeeklyEstimates =
 
 ```{r}
 ffdata %>%
-    # filter(scoringPeriodId==5) %>%
+  # filter(scoringPeriodId==9) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   select(Actual,Predicted,Player,ActualMinusPredicted) %>%
   summarise(mean=mean(Actual, na.rm = TRUE))  -> weekleaguemean
 
-ffdata %>%
-  # filter(Team=="'R'm Chair_Quarterback") %>%
-  # filter(scoringPeriodId==5) %>%
+maxsrow = tibble(Team="Analysis_Paralysis", scoringPeriodId=9, 
+                 Starter = "Starter", SlottedPosition = "Kicker", 
+                 Actual = 0, Predicted = 0)
+
+ffdata %>% 
+  bind_rows(maxsrow) %>%
+  # filter(Team=="Analysis_Paralysis") %>%
+  # filter(scoringPeriodId==9) %>%
   filter(Team==params$team) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   summarise(sum = sum(Actual, na.rm = TRUE)) -> weakteamsum
 
 ffdata %>%
-  # filter(scoringPeriodId==5) %>%
+  # filter(scoringPeriodId==9) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
   filter(!is.na(Team)) %>%
@@ -70,8 +76,8 @@ ffdata %>%
 
 ```{r,fig.align='center'}
 ffdata %>% 
-  # filter(Team=="'R'm Chair_Quarterback") %>%
-  # filter(scoringPeriodId==5) %>%
+  # filter(Team=="Analysis_Paralysis") %>%
+  # filter(scoringPeriodId==9) %>%
   filter(Team==params$team) %>%
   filter(scoringPeriodId==params$week) %>%
   filter(Starter=="Starter") %>%
@@ -184,11 +190,21 @@ WeeklyEstimates %>%
            PosOrder = 1:7)
   )
 
+maxrows = 
+  tibble(
+    Team = c("Analysis_Paralysis"), 
+    scoringPeriodId = c(9), 
+    Position = c("Kicker"), 
+    Rank = c(NA), 
+    PosOrder = c(9), 
+    Lineup = c("Actual"),
+    Actual = 0,
+    Player = "No Player")
+
 data =
 optimallineup %>% 
   mutate(Lineup="Best") %>%
   bind_rows(
-
   WeeklyEstimates1 %>% as_tibble() %>%
   filter(Starter=="Starter") %>%
   select(scoringPeriodId,Player,SlottedPosition,Team,Actual,PosOrder) %>%
@@ -196,10 +212,23 @@ optimallineup %>%
   rename(Position = SlottedPosition) %>%
   arrange(Team,scoringPeriodId,PosOrder)
 ) %>%
+  bind_rows(maxrows) %>%
   filter(Team==params$team) %>%
-  # filter(Team=="'R'm Chair_Quarterback") %>%
+  # filter(Team=="Analysis_Paralysis") %>%
   rename(Week = scoringPeriodId) %>%
-  ungroup()
+  ungroup() 
+
+# data %>%
+#   filter(Week == 9) %>%
+#   filter(Lineup=="Best") %>%
+#   rename(BestScored = Actual, BestPlayer = Player) %>%
+#   select(Week,Position,BestPlayer,BestScored)
+# 
+# data %>%
+#   filter(Week == 9) %>%
+#   filter(Lineup=="Actual") %>%
+#   rename(ActualScored = Actual, ActualPlayer = Player) %>%
+#   select(ActualPlayer,ActualScored)
 
 data %>%
   filter(Lineup=="Best") %>%

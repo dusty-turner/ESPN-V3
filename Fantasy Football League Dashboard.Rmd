@@ -631,6 +631,11 @@ ffdata %>%
   # ggplot(aes(x=ActualMinusPredicted)) + geom_histogram() + facet_wrap(~Position)
   select(ActualMinusPredicted)
 
+positionnumberdf = tibble(
+  SlottedPosition = c("Defense", "Flex", "Running Back", "Quarterback", "Bench", "Wide Receiver", "Tight End", "Kicker"),
+  n = c(1,1,2,1,6,2,1,1)
+  )
+
 fulldf = NULL
 
 for (i in 1:100) {
@@ -640,11 +645,11 @@ pointsscoreddf =
 sampleframe %>% nest() %>%
   ungroup() %>%
   filter(SlottedPosition!="IR") %>%
-  mutate(n = c(1,1,1,6,2,2,1,1)) %>%
-  # mutate(n = n())
+  # mutate(n = c(1,1,2,1,6,2,1,1)) %>%
+  left_join(positionnumberdf, by = "SlottedPosition") %>%
   mutate(samp = map2(data,n*10*week,~sample_n(.x,.y, replace = TRUE))) %>%
   select(-data) %>%
-  unnest() %>% 
+  unnest(cols = samp) %>% 
   group_by(SlottedPosition) %>%
   mutate(teamID = rep(1:10,n()/10)) %>%
   filter(SlottedPosition!="Bench")
@@ -658,13 +663,20 @@ ffdata %>%
   arrange(Team) %>%
   mutate(teamID = group_indices())
 
-joinhelp = ## had to do this because analysis paralysis didn't play a defesne in week 6
+joinhelp1 = ## had to do this because analysis paralysis didn't play a defesne in week 6
 joiner %>% filter(scoringPeriodId==5)%>%
 filter(Team=="Analysis_Paralysis") %>%
   filter(SlottedPosition=="Defense") %>%
   mutate(scoringPeriodId=6) 
 
-joiner = joinhelp %>%
+joinhelp2 = ## had to do this because analysis paralysis didn't play a kicker in week 9
+joiner %>% filter(scoringPeriodId==8)%>%
+filter(Team=="Analysis_Paralysis") %>%
+  filter(SlottedPosition=="Defense") %>%
+  mutate(scoringPeriodId=9) 
+
+joiner = joinhelp1 %>%
+  bind_rows(joinhelp2) %>%
   bind_rows(joiner)
 
 
@@ -703,7 +715,7 @@ leaguedata %>% select(weekID,AwayTeam,HomeTeam) %>% distinct() %>%
   mutate(Winner = if_else(AwayPoints>HomePoints,AwayTeam,HomeTeam)) %>%
   filter(complete.cases(.)) %>%
   count(Winner) %>%
-  full_join(teamiddf) %>%
+  full_join(teamiddf, by = "Winner") %>%
   mutate(n = replace_na(n,0)) %>%
   rename(Wins = n) %>%
   mutate(Losses = weeks-Wins)
@@ -816,11 +828,12 @@ pointsscoreddf =
 sampleframe %>% nest() %>%
   ungroup() %>%
   filter(SlottedPosition!="IR") %>%  
-  mutate(n = c(1,1,1,6,2,2,1,1)) %>%
+    left_join(positionnumberdf, by = "SlottedPosition") %>%
+  # mutate(n = c(1,1,2,1,6,2,1,1)) %>%
   # mutate(n = n())
   mutate(samp = map2(data,n*10*9,~sample_n(.x,.y, replace = TRUE))) %>%
   select(-data) %>%
-  unnest() %>% 
+  unnest(cols = c(samp)) %>% 
   group_by(SlottedPosition) %>%
   mutate(teamID = rep(1:10,n()/10)) %>%
   filter(SlottedPosition!="Bench")
@@ -828,17 +841,17 @@ sampleframe %>% nest() %>%
 
 joiner =
 ffdata %>%
-  filter(Starter=="Starter") %>% 
+  filter(Starter=="Starter") %>%
   filter(!is.na(Team)) %>%
   # arrange(scoringPeriodId,Team,SlottedPosition) %>%
   arrange(Team) %>%
   mutate(teamID = group_indices()) %>%
   ungroup() %>%
   filter(scoringPeriodId==max(scoringPeriodId))
-
-joiner = ## had to do this because analysis paralysis didn't play a defesne in week 6
- joinhelp %>%
-  bind_rows(joiner)
+# 
+# joiner = ## had to do this because analysis paralysis didn't play a kicker in week 9
+#  joinhelp2 %>%
+#   bind_rows(joiner)
 
 joiner = map_dfr(seq_len(9), ~joiner) %>%
   mutate(scoringPeriodId = rep(5:13, each = 90))

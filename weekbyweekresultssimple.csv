@@ -27,28 +27,28 @@ awayid,awaypoints,homeid,homepoints,winner,weekID,AwayTeam,HomeTeam
 3,96.42,2,114.6,Philly Chapmaniacs,6,The Plainsmen,Philly Chapmaniacs
 1,132.74,6,122.6,'R'm Chair Quarterback,6,'R'm Chair Quarterback,Team Ward
 5,66.6,10,138.14,Palindrome Tikkit,6,Analysis Paralysis,Palindrome Tikkit
-7,124.14,8,103.76,Compute This!,6,Compute This!,The Chief
+7,124.24,8,103.76,Compute This!,6,Compute This!,The Chief
 9,116.12,4,134.22,The OBJective Functions,6,Dallas The boys,The OBJective Functions
-2,0,1,0,'R'm Chair Quarterback,7,Philly Chapmaniacs,'R'm Chair Quarterback
-6,0,5,0,Analysis Paralysis,7,Team Ward,Analysis Paralysis
-10,0,7,0,Compute This!,7,Palindrome Tikkit,Compute This!
-8,0,9,0,Dallas The boys,7,The Chief,Dallas The boys
-4,0,3,0,The Plainsmen,7,The OBJective Functions,The Plainsmen
-5,0,2,0,Philly Chapmaniacs,8,Analysis Paralysis,Philly Chapmaniacs
-7,0,6,0,Team Ward,8,Compute This!,Team Ward
-9,0,10,0,Palindrome Tikkit,8,Dallas The boys,Palindrome Tikkit
-3,0,8,0,The Chief,8,The Plainsmen,The Chief
-1,0,4,0,The OBJective Functions,8,'R'm Chair Quarterback,The OBJective Functions
-2,0,7,0,Compute This!,9,Philly Chapmaniacs,Compute This!
-5,0,9,0,Dallas The boys,9,Analysis Paralysis,Dallas The boys
-4,0,6,0,Team Ward,9,The OBJective Functions,Team Ward
-1,0,3,0,The Plainsmen,9,'R'm Chair Quarterback,The Plainsmen
-8,0,10,0,Palindrome Tikkit,9,The Chief,Palindrome Tikkit
-6,0,9,0,Dallas The boys,10,Team Ward,Dallas The boys
-7,0,3,0,The Plainsmen,10,Compute This!,The Plainsmen
-10,0,2,0,Philly Chapmaniacs,10,Palindrome Tikkit,Philly Chapmaniacs
-5,0,1,0,'R'm Chair Quarterback,10,Analysis Paralysis,'R'm Chair Quarterback
-8,0,4,0,The OBJective Functions,10,The Chief,The OBJective Functions
+2,128.62,1,93.12,Philly Chapmaniacs,7,Philly Chapmaniacs,'R'm Chair Quarterback
+6,113.86,5,35.34,Team Ward,7,Team Ward,Analysis Paralysis
+10,122.98,7,118.04,Palindrome Tikkit,7,Palindrome Tikkit,Compute This!
+8,108.26,9,136.76,Dallas The boys,7,The Chief,Dallas The boys
+4,94.9,3,85.04,The OBJective Functions,7,The OBJective Functions,The Plainsmen
+5,100.54,2,140.36,Philly Chapmaniacs,8,Analysis Paralysis,Philly Chapmaniacs
+7,129.58,6,107.5,Compute This!,8,Compute This!,Team Ward
+9,126.28,10,160.86,Palindrome Tikkit,8,Dallas The boys,Palindrome Tikkit
+3,103.78,8,107.06,The Chief,8,The Plainsmen,The Chief
+1,145.1,4,117.18,'R'm Chair Quarterback,8,'R'm Chair Quarterback,The OBJective Functions
+2,116.84,7,76.36,Philly Chapmaniacs,9,Philly Chapmaniacs,Compute This!
+5,116.1,9,113.94,Analysis Paralysis,9,Analysis Paralysis,Dallas The boys
+4,125.64,6,161.46,Team Ward,9,The OBJective Functions,Team Ward
+1,121.28,3,122.42,The Plainsmen,9,'R'm Chair Quarterback,The Plainsmen
+8,114.9,10,105.1,The Chief,9,The Chief,Palindrome Tikkit
+6,114.38,9,129.82,Dallas The boys,10,Team Ward,Dallas The boys
+7,143.52,3,89.88,Compute This!,10,Compute This!,The Plainsmen
+10,154.94,2,126.52,Palindrome Tikkit,10,Palindrome Tikkit,Philly Chapmaniacs
+5,110.72,1,122.22,'R'm Chair Quarterback,10,Analysis Paralysis,'R'm Chair Quarterback
+8,152.08,4,106.66,The Chief,10,The Chief,The OBJective Functions
 10,0,3,0,The Plainsmen,11,Palindrome Tikkit,The Plainsmen
 1,0,9,0,Dallas The boys,11,'R'm Chair Quarterback,Dallas The boys
 6,0,8,0,The Chief,11,Team Ward,The Chief
