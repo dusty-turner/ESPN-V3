@@ -100,7 +100,7 @@ Palindrome Tikkit,10,Palindrome Tikkit,Philly Chapmaniacs,homepoints,126.52,5,4,
 'R'm Chair Quarterback,10,Analysis Paralysis,'R'm Chair Quarterback,homepoints,122.22,6,5,4
 The Chief,10,The Chief,The OBJective Functions,homepoints,106.66,9,8,1
 The Plainsmen,11,Palindrome Tikkit,The Plainsmen,awaypoints,124.74,4,3,6
-Dallas The boys,11,'R'm Chair Quarterback,Dallas The boys,awaypoints,114.48,7,6,3
+Dallas The boys,11,'R'm Chair Quarterback,Dallas The boys,awaypoints,113.78,7,6,3
 The Chief,11,Team Ward,The Chief,awaypoints,128.62,3,2,7
 Compute This!,11,Analysis Paralysis,Compute This!,awaypoints,77.92,10,9,0
 The OBJective Functions,11,Philly Chapmaniacs,The OBJective Functions,awaypoints,83.36,9,8,1
@@ -109,16 +109,16 @@ Dallas The boys,11,'R'm Chair Quarterback,Dallas The boys,homepoints,115.58,6,5,
 The Chief,11,Team Ward,The Chief,homepoints,130.54,2,1,8
 Compute This!,11,Analysis Paralysis,Compute This!,homepoints,116.86,5,4,5
 The OBJective Functions,11,Philly Chapmaniacs,The OBJective Functions,homepoints,85.62,8,7,2
-'R'm Chair Quarterback,12,The Chief,'R'm Chair Quarterback,awaypoints,0,5.5,4.5,4.5
-Analysis Paralysis,12,The Plainsmen,Analysis Paralysis,awaypoints,0,5.5,4.5,4.5
-Palindrome Tikkit,12,The OBJective Functions,Palindrome Tikkit,awaypoints,0,5.5,4.5,4.5
-Compute This!,12,Dallas The boys,Compute This!,awaypoints,0,5.5,4.5,4.5
-Team Ward,12,Philly Chapmaniacs,Team Ward,awaypoints,0,5.5,4.5,4.5
-'R'm Chair Quarterback,12,The Chief,'R'm Chair Quarterback,homepoints,0,5.5,4.5,4.5
-Analysis Paralysis,12,The Plainsmen,Analysis Paralysis,homepoints,0,5.5,4.5,4.5
-Palindrome Tikkit,12,The OBJective Functions,Palindrome Tikkit,homepoints,0,5.5,4.5,4.5
-Compute This!,12,Dallas The boys,Compute This!,homepoints,0,5.5,4.5,4.5
-Team Ward,12,Philly Chapmaniacs,Team Ward,homepoints,0,5.5,4.5,4.5
+The Chief,12,The Chief,'R'm Chair Quarterback,awaypoints,140.24,2,1,8
+Analysis Paralysis,12,The Plainsmen,Analysis Paralysis,awaypoints,99.4,7,6,3
+The OBJective Functions,12,The OBJective Functions,Palindrome Tikkit,awaypoints,112.86,5,4,5
+Compute This!,12,Dallas The boys,Compute This!,awaypoints,93.88,9,8,1
+Philly Chapmaniacs,12,Philly Chapmaniacs,Team Ward,awaypoints,154.52,1,0,9
+The Chief,12,The Chief,'R'm Chair Quarterback,homepoints,128.76,4,3,6
+Analysis Paralysis,12,The Plainsmen,Analysis Paralysis,homepoints,106.92,6,5,4
+The OBJective Functions,12,The OBJective Functions,Palindrome Tikkit,homepoints,82.74,10,9,0
+Compute This!,12,Dallas The boys,Compute This!,homepoints,94.14,8,7,2
+Philly Chapmaniacs,12,Philly Chapmaniacs,Team Ward,homepoints,139.18,3,2,7
 Analysis Paralysis,13,The OBJective Functions,Analysis Paralysis,awaypoints,0,5.5,4.5,4.5
 'R'm Chair Quarterback,13,Compute This!,'R'm Chair Quarterback,awaypoints,0,5.5,4.5,4.5
 Philly Chapmaniacs,13,The Chief,Philly Chapmaniacs,awaypoints,0,5.5,4.5,4.5

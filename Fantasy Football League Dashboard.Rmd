@@ -932,7 +932,7 @@ fulldf %>%
          ) +
     geom_col(color = "black") +
   # scale_color_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=5))) +
-  scale_fill_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=15))) +
+  scale_fill_manual(values=scales::seq_gradient_pal("green", "red", "Lab")(seq(0,1,length.out=17))) +
    scale_x_discrete(labels = function(x) str_wrap(x, width = 5)) +
   geom_text(size = 3, position = position_stack(vjust = 0.5), color = "black") +
   labs(title = "Simulated Record of The Rest of the Season", 
