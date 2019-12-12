@@ -64,8 +64,13 @@ awayid,awaypoints,homeid,homepoints,winner,weekID,AwayTeam,HomeTeam
 8,114.76,2,123.2,Philly Chapmaniacs,13,The Chief,Philly Chapmaniacs
 9,118.58,3,135.7,The Plainsmen,13,Dallas The boys,The Plainsmen
 10,122.94,6,82.32,Palindrome Tikkit,13,Palindrome Tikkit,Team Ward
-6,0,7,0,Compute This!,14,Team Ward,Compute This!
-4,0,8,0,The Chief,14,The OBJective Functions,The Chief
-3,0,10,0,Palindrome Tikkit,14,The Plainsmen,Palindrome Tikkit
-9,0,2,0,Philly Chapmaniacs,14,Dallas The boys,Philly Chapmaniacs
-5,0,1,0,'R'm Chair Quarterback,14,Analysis Paralysis,'R'm Chair Quarterback
+6,123.16,7,146.7,Compute This!,14,Team Ward,Compute This!
+4,118.58,8,127.46,The Chief,14,The OBJective Functions,The Chief
+3,124.1,10,119.44,The Plainsmen,14,The Plainsmen,Palindrome Tikkit
+9,100,2,123.98,Philly Chapmaniacs,14,Dallas The boys,Philly Chapmaniacs
+5,76.74,1,97.8,'R'm Chair Quarterback,14,Analysis Paralysis,'R'm Chair Quarterback
+8,0,7,0,Compute This!,15,The Chief,Compute This!
+3,0,2,0,Philly Chapmaniacs,15,The Plainsmen,Philly Chapmaniacs
+4,0,10,0,Palindrome Tikkit,15,The OBJective Functions,Palindrome Tikkit
+6,0,9,0,Dallas The boys,15,Team Ward,Dallas The boys
+5,0,1,0,'R'm Chair Quarterback,15,Analysis Paralysis,'R'm Chair Quarterback
