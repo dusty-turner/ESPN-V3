@@ -1,5 +1,5 @@
 library(tidyverse)
-weeks=15
+weeks=16
 leagueID = "89417258"
 year = "2019"
 
@@ -151,6 +151,7 @@ for (i in 1:weeks) {
     mutate(scoringPeriodId = i)
   
   PlayerTeamDF = bind_rows(PlayerTeamDF, PlayerTeamDFshort)
+  print(i)
 }
 
 ## adds team info to player dataframe
@@ -161,7 +162,8 @@ PlayerPerformance =
   as_tibble()
 
 WeeklyEstimates =
-  PlayerPerformance %>% as.data.frame() %>%
+  PlayerPerformance %>%
+  # as.data.frame() %>%
   # filter(Team == "'R'm Chair_Quarterback") %>%
   filter(nchar(externalId) > 4) %>%
   mutate(statSourceId = if_else(statSourceId == 1, "Predicted", "Actual")) %>%
@@ -173,8 +175,8 @@ WeeklyEstimates =
     Position,
     Team,
     playerrosterslot
-  ) %>%
-  spread(statSourceId, appliedTotal) %>%
+  ) %>% distinct() %>% 
+  spread(statSourceId, appliedTotal) %>% 
   arrange(Player) %>%
   mutate(ActualMinusPredicted = Actual - Predicted) %>%
   left_join(PlayerSlotIDs) %>%
@@ -238,7 +240,7 @@ gofunction(weeks = weeks, leagueID = leagueID, year = year)
 ###HTML Documents
 WeeklyEstimates = read_csv("FantasyFootballData.csv")
 WeeklyEstimates$Team  %>% unique() %>% na.omit() -> teamlist
-currentweek = 15
+currentweek = 16
 for (i in 1:10) {
   rmarkdown::render("Fantasy Football Team Report.Rmd",params=list(team=teamlist[i],week = currentweek))
   file.rename(from="Fantasy-Football-Team-Report.html", to =paste0(teamlist[i],"_Update.html"))
